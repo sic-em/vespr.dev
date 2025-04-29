@@ -8,6 +8,7 @@
 		"start": "next start",
 		"format": "pnpm dlx @biomejs/biome check --write .",
 		"check": "pnpm dlx @biomejs/biome check .",
+		"postinstall": "prisma generate",
 		"lint:fix": "pnpm dlx @biomejs/biome check --fix --unsafe",
 		"prisma:generate": "prisma generate",
 		"prisma:migrate": "prisma migrate dev",
