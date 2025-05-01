@@ -7,6 +7,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { MobileNav } from './mobile-nav';
 
 export const Navbar = async () => {
 	const categories = await getCategories();
@@ -17,7 +18,8 @@ export const Navbar = async () => {
 			<div className="flex items-center justify-between gap-2 md:gap-4 px-6 py-4">
 				<div className="flex items-center gap-6">
 					<Logo />
-					<div className="flex items-center gap-2">
+					{/* Navigation Links */}
+					<div className="hidden md:flex items-center gap-2">
 						<Link href="/browse" className={cn(buttonVariants({ variant: 'ghost' }))}>
 							Browse
 						</Link>
@@ -28,10 +30,18 @@ export const Navbar = async () => {
 					</div>
 				</div>
 				<div className="flex items-center gap-4">
-					<CmdKSearch categories={categories} resources={resources} />
-					<ThemeToggle />
-					<div className="h-6 w-[1px] bg-muted-foreground/20 rounded-full" />
-					<SubmitResourceButton />
+					{/* Right-side elements */}
+					<div className="hidden md:flex items-center gap-4">
+						<CmdKSearch categories={categories} resources={resources} />
+						<ThemeToggle />
+						<div className="h-6 w-[1px] bg-muted-foreground/20 rounded-full" />
+						<SubmitResourceButton />
+					</div>
+					{/* Mobile Nav */}
+					<MobileNav
+						categories={categories}
+						submitButton={<SubmitResourceButton className="w-full" />}
+					/>
 				</div>
 			</div>
 		</nav>

@@ -7,7 +7,7 @@ export const LoginButton = () => {
 	const handleLogin = async () => {
 		await authClient.signIn.social({
 			provider: 'github',
-			callbackURL: '/admin',
+			callbackURL: '/',
 		});
 	};
 

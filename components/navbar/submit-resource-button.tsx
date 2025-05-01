@@ -4,9 +4,14 @@ import { SubmissionForm } from '@/components/navbar/submission-form';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { auth } from '@/lib/auth';
+import { cn } from '@/lib/utils';
 import { headers } from 'next/headers';
 
-export const SubmitResourceButton = async () => {
+type SubmitResourceButtonProps = {
+	className?: string;
+};
+
+export const SubmitResourceButton = async ({ className }: SubmitResourceButtonProps) => {
 	const [session, categories] = await Promise.all([
 		auth.api.getSession({ headers: await headers() }),
 		getCategories(),
@@ -15,7 +20,12 @@ export const SubmitResourceButton = async () => {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button className="bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors shadow-md">
+				<Button
+					className={cn(
+						'bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors shadow-md',
+						className,
+					)}
+				>
 					Submit
 				</Button>
 			</PopoverTrigger>

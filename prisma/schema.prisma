@@ -26,6 +26,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   resources     Resource[]
+  bookmarks     UserResourceBookmark[]
 
   @@map("user")
 }
@@ -100,7 +101,7 @@ model Resource {
   url         String
   imageUrl    String
   views       Int      @default(0)
-  favorites   Int      @default(0)
+  bookmarkCount Int    @default(0)
   recommended Boolean  @default(false)
   status      ResourceStatus @default(PENDING)
   createdAt   DateTime @default(now())
@@ -112,4 +113,18 @@ model Resource {
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  bookmarks   UserResourceBookmark[]
+}
+
+model UserResourceBookmark {
+  userId     String
+  resourceId String
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resource Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+  @@id([userId, resourceId])
+  @@map("user_resource_bookmark")
 }
