@@ -41,20 +41,20 @@ export function ItemCard({ item }: ItemCardProps) {
 					</ViewTransition>
 				</Link>
 				{isNew && (
-					<Badge className="absolute top-2 right-2 px-2 py-0.5 rounded-[8px] bg-gradient-to-b from-pink-800 to-pink-900 text-white text-xs shadow-md">
-						<SparklesIcon className="w-4 h-4 fill-white" />
+					<Badge className="absolute top-2 right-2 px-2 py-0.5 rounded-[8px] bg-gradient-to-b from-blue-200 to-blue-300 text-blue-900 text-xs shadow-md">
+						<SparklesIcon className="w-4 h-4 fill-blue-900" />
 						NEW
 					</Badge>
 				)}
 			</div>
 			<div className="mt-2">
 				<Link
-					href={item.url}
-					className="text-xs text-pink-500 hover:underline flex items-center gap-1"
+					href={`${item.url}?ref=vespr.dev`}
+					className="text-xs text-blue-300 hover:underline flex items-center gap-1"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<LinkIcon className="w-3 h-3 text-pink-500" />
+					<LinkIcon className="w-3 h-3 text-blue-300" />
 					{item.url.replace(/^(https?:\/\/)?(www\.)?([^\/]+).*$/, '$3')}
 				</Link>
 				<ViewTransition name={`title-${item.id}`}>

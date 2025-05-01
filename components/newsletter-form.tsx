@@ -51,7 +51,7 @@ export const NewsletterForm = () => {
 			/>
 			<Button
 				type="submit"
-				className="flex-shrink-0 h-9 bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors shadow-md"
+				className="flex-shrink-0 h-9 bg-gradient-to-b from-blue-200 to-blue-300 hover:bg-blue-300 cursor-pointer text-blue-900 hover:from-blue-100 hover:to-blue-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
 				disabled={isLoading}
 			>
 				{isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Subscribe'}

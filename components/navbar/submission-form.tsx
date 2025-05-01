@@ -36,9 +36,10 @@ type SubmissionFormData = SubmissionSchema;
 
 interface SubmissionFormProps {
 	categories: Category[];
+	onSuccess?: () => void;
 }
 
-export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
+export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) => {
 	const { data: session } = authClient.useSession();
 	const isAdmin = session?.user?.role === 'admin';
 	const router = useRouter();
@@ -108,6 +109,7 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 			if (result.success && result.resourceId && result.categorySlug) {
 				toast.success(result.message);
 				form.reset();
+				onSuccess?.();
 				router.push(`/browse/${result.categorySlug}/${result.resourceId}`);
 			} else {
 				toast.error(result.message || 'Submission failed.');
@@ -251,7 +253,7 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 				<Button
 					type="submit"
 					disabled={isSubmitting}
-					className="w-full bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors"
+					className="w-full bg-gradient-to-b from-blue-200 to-blue-300 hover:bg-blue-300 cursor-pointer text-blue-900 hover:from-blue-100 hover:to-blue-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
 				>
 					{isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
 					Submit Resource

@@ -24,7 +24,7 @@ export const Footer = async () => {
 	return (
 		<footer className="border-t border-dashed pt-8 mt-16 md:pb-0 pb-16 relative md:h-[600px] h-full overflow-hidden">
 			<div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 pt-6">
-				<div className="md:grid md:grid-cols-3 flex flex-col-reverse md:gap-8 gap-10">
+				<div className="md:grid md:grid-cols-3 md:justify-items-center flex flex-col-reverse md:gap-8 gap-10">
 					{/* Newsletter */}
 					<div className="flex flex-col gap-4">
 						<h3 className="text-base">Get the latest resources</h3>
@@ -36,7 +36,7 @@ export const Footer = async () => {
 						</div>
 					</div>
 					{/* Navigation */}
-					<div className="flex flex-col gap-4 md:pl-20">
+					<div className="flex flex-col gap-4">
 						<h3 className="text-base">Navigation</h3>
 						<div className="flex flex-col gap-2">
 							{navigation.map((item) => (
