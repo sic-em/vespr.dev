@@ -12,7 +12,7 @@ export const LoginButton = () => {
 	};
 
 	return (
-		<Button onClick={handleLogin} className="cursor-pointer shadow-lg">
+		<Button onClick={handleLogin} size="sm" className="cursor-pointer rounded-[8px] shadow-lg">
 			<svg
 				width="1024"
 				height="1024"

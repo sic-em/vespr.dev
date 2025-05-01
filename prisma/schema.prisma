@@ -11,10 +11,10 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
+  id            String     @id @default(uuid())
+  email         String     @unique
   password      String?
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime   @default(now())
   name          String
   emailVerified Boolean
   image         String?
@@ -25,6 +25,7 @@ model User {
   banExpires    DateTime?
   sessions      Session[]
   accounts      Account[]
+  resources     Resource[]
 
   @@map("user")
 }
@@ -73,4 +74,45 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Category {
+  id        String     @id @default(uuid())
+  name      String
+  slug      String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Resource  Resource[]
+
+  @@map("category")
+}
+
+enum ResourceStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Resource {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  url         String
+  imageUrl    String
+  tags        String[]
+  views       Int      @default(0)
+  favorites   Int      @default(0)
+  openSource  Boolean  @default(false)
+  paid        Boolean  @default(false)
+  recommended Boolean  @default(false)
+  status      ResourceStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // relations
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 }

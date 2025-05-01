@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Navbar } from '@/components/navbar/navbar';
 import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/providers/theme-provider';
 import localFont from 'next/font/local';
 
 export const metadata: Metadata = {
@@ -19,8 +21,18 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={cn(departure.className, 'antialiased')}>{children}</body>
+		<html lang="en" suppressHydrationWarning>
+			<body className={cn(departure.className, 'antialiased')}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<Navbar />
+					{children}
+				</ThemeProvider>
+			</body>
 		</html>
 	);
 }
