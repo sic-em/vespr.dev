@@ -1,17 +1,17 @@
 'use server';
 
+import type { SectionItem } from '@/components/ui/section';
 import { auth } from '@/lib/auth';
 import db from '@/lib/db';
 import { type SubmissionSchema, submissionSchema } from '@/lib/schemas';
-import { ResourceStatus } from '@/prisma/app/generated/prisma/client';
+import { type Category, ResourceStatus } from '@/prisma/app/generated/prisma/client';
+import type { OpenGraphMetadata } from '@/types/opengraph';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { parse } from 'node-html-parser';
-import type { OpenGraphMetadata } from '../types/opengraph';
 
 export async function getCategories() {
-	const categories = await db.category.findMany();
-	return categories;
+	return await db.category.findMany({ orderBy: { name: 'asc' } });
 }
 
 export async function fetchOpenGraphMetadata(targetUrl: string): Promise<OpenGraphMetadata> {
@@ -69,7 +69,22 @@ export async function submitResource(values: SubmissionSchema) {
 			};
 		}
 
-		const { tags, ...data } = validatedFields.data;
+		const data = validatedFields.data;
+
+		// check if a resource with this url already exists
+		const existingResource = await db.resource.findFirst({
+			where: { url: data.url },
+		});
+
+		if (existingResource) {
+			return {
+				success: false,
+				message: 'A resource with this URL already exists.',
+				errors: {
+					url: ['This URL has already been submitted.'],
+				},
+			};
+		}
 
 		const status = session.user.role === 'admin' ? ResourceStatus.APPROVED : ResourceStatus.PENDING;
 
@@ -86,12 +101,6 @@ export async function submitResource(values: SubmissionSchema) {
 			data: {
 				...data,
 				imageUrl: data.imageUrl || '',
-				tags: tags
-					? tags
-							.split(',')
-							.map((tag) => tag.trim())
-							.filter(Boolean)
-					: [],
 				status,
 				userId: session.user.id,
 			},
@@ -120,4 +129,129 @@ export async function getResources() {
 		},
 	});
 	return resources;
+}
+
+export type HomepageCategoryData = Category & { items: SectionItem[] };
+
+export async function getResourcesForHomepage(): Promise<HomepageCategoryData[]> {
+	const categories = await db.category.findMany({
+		include: {
+			Resource: {
+				where: {
+					status: ResourceStatus.APPROVED,
+				},
+				take: 6,
+				orderBy: {
+					createdAt: 'desc',
+				},
+				select: {
+					id: true,
+					name: true,
+					description: true,
+					imageUrl: true,
+					url: true,
+					createdAt: true,
+					category: {
+						select: {
+							slug: true,
+						},
+					},
+				},
+			},
+		},
+		orderBy: {
+			name: 'asc',
+		},
+	});
+
+	return categories.map((category) => ({
+		...category,
+		items: category.Resource as SectionItem[],
+	}));
+}
+
+export async function subscribeToNewsletter(email: string) {
+	try {
+		const API_KEY = process.env.MAILCHIMP_API_KEY;
+		const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
+		const SERVER_PREFIX = process.env.MAILCHIMP_SERVER_PREFIX;
+
+		if (!API_KEY || !AUDIENCE_ID || !SERVER_PREFIX) {
+			return { success: false, message: 'Mailchimp configuration is missing' };
+		}
+
+		const response = await fetch(
+			`https://${SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `apikey ${API_KEY}`,
+				},
+				body: JSON.stringify({
+					email_address: email,
+					status: 'subscribed',
+				}),
+			},
+		);
+
+		const data = await response.json();
+
+		if (response.ok) {
+			return { success: true, message: 'Successfully subscribed to the newsletter!' };
+		}
+
+		// handle existing subscribers
+		if (data.title === 'Member Exists') {
+			return { success: true, message: 'You are already subscribed to our newsletter.' };
+		}
+		return { success: false, message: data.detail || 'Failed to subscribe to newsletter' };
+	} catch (error) {
+		console.error('Newsletter subscription error:', error);
+		return { success: false, message: 'An error occurred while subscribing to the newsletter' };
+	}
+}
+
+export async function getResource(id: string) {
+	const resource = await db.resource.findUnique({
+		where: { id },
+		include: {
+			category: true,
+			user: true,
+		},
+	});
+	return resource;
+}
+
+export async function getSimilarResources(
+	currentItemId: string,
+	categoryId: string,
+): Promise<SectionItem[]> {
+	const similarResources = await db.resource.findMany({
+		where: {
+			categoryId: categoryId,
+			status: ResourceStatus.APPROVED,
+			NOT: {
+				id: currentItemId,
+			},
+		},
+		take: 6,
+		orderBy: {
+			createdAt: 'desc',
+		},
+		select: {
+			id: true,
+			name: true,
+			description: true,
+			imageUrl: true,
+			url: true,
+			category: {
+				select: {
+					slug: true,
+				},
+			},
+		},
+	});
+
+	return similarResources as SectionItem[];
 }
