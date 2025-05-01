@@ -99,11 +99,8 @@ model Resource {
   description String
   url         String
   imageUrl    String
-  tags        String[]
   views       Int      @default(0)
   favorites   Int      @default(0)
-  openSource  Boolean  @default(false)
-  paid        Boolean  @default(false)
   recommended Boolean  @default(false)
   status      ResourceStatus @default(PENDING)
   createdAt   DateTime @default(now())
