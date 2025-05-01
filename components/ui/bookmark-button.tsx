@@ -85,7 +85,7 @@ export function BookmarkButton({
 	return (
 		<Button
 			variant="outline"
-			className="flex items-center gap-1.5 relative overflow-hidden"
+			className="flex items-center gap-1.5 relative overflow-hidden rounded-[8px]"
 			onClick={handleClick}
 			disabled={isPending}
 			aria-label={optimisticState.isBookmarked ? 'Remove bookmark' : 'Add bookmark'}

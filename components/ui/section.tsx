@@ -57,7 +57,7 @@ export function Section({ title, items, viewAllHref, delay = 0 }: SectionProps) 
 						</Link>
 					</Button>
 				</div>
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 					{items.map((item) => (
 						<ViewTransition key={item.id} name={`item-${item.id}`}>
 							<ItemCard key={item.id} item={item} />
