@@ -150,9 +150,13 @@ export default async function ItemPage(props: ItemPageProps) {
 					<div className="flex items-center gap-2">
 						<Button
 							asChild
-							className="flex-grow group bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors shadow-md"
+							className="flex-grow group bg-gradient-to-b from-blue-200 to-blue-300 hover:bg-blue-300 cursor-pointer text-blue-900 hover:from-blue-100 hover:to-blue-200 duration-300 ease-in-out transition-colors shadow-md"
 						>
-							<Link href={resource.url} target="_blank" rel="noopener noreferrer">
+							<Link
+								href={`${resource.url}?ref=vespr.dev`}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
 								Visit Resource
 								<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 							</Link>

@@ -141,7 +141,7 @@ export async function getResourcesForHomepage(): Promise<HomepageCategoryData[]>
 				where: {
 					status: ResourceStatus.APPROVED,
 				},
-				take: 6,
+				take: 5,
 				orderBy: {
 					createdAt: 'desc',
 				},
