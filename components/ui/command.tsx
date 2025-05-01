@@ -18,7 +18,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
 		<CommandPrimitive
 			data-slot="command"
 			className={cn(
-				'bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md',
+				'bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-mdd',
 				className,
 			)}
 			{...props}
@@ -55,7 +55,10 @@ function CommandInput({
 	...props
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
 	return (
-		<div data-slot="command-input-wrapper" className="flex h-9 items-center gap-2 border-b px-3">
+		<div
+			data-slot="command-input-wrapper"
+			className="flex h-9 items-center gap-2 border-dashed border-b px-3"
+		>
 			<SearchIcon className="size-4 shrink-0 opacity-50" />
 			<CommandPrimitive.Input
 				data-slot="command-input"
