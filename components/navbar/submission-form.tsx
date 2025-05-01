@@ -6,7 +6,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -55,9 +54,6 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 			description: '',
 			imageUrl: '',
 			categoryId: '',
-			tags: '',
-			openSource: false,
-			paid: false,
 			recommended: false,
 		},
 	});
@@ -65,7 +61,6 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 	const watchedUrl = useWatch({ control: form.control, name: 'url' });
 	const watchedImageUrl = useWatch({ control: form.control, name: 'imageUrl' });
 
-	// 1. Define the core fetching logic with useCallback
 	const fetchMetadataCallback = useCallback(
 		async (targetUrl: string) => {
 			if (!targetUrl || !/^(http|https):\/\/[^ "\\.]+\.[^ "\\.]+/.test(targetUrl)) {
@@ -93,16 +88,14 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 			}
 		},
 		[form],
-	); // form object is stable, added for clarity
+	);
 
-	// 2. Create the debounced version using useMemo
 	const debouncedFetchMetadata = useMemo(
 		() => debounce(fetchMetadataCallback, 750),
 		[fetchMetadataCallback],
 	);
 
 	useEffect(() => {
-		// 3. Call the debounced function and add cleanup
 		debouncedFetchMetadata(watchedUrl);
 		return () => {
 			debouncedFetchMetadata.cancel();
@@ -177,7 +170,11 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 						<FormItem>
 							<FormLabel>Description</FormLabel>
 							<FormControl>
-								<Textarea placeholder="Describe the resource..." {...field} />
+								<Textarea
+									placeholder="Describe the resource..."
+									{...field}
+									className="resize-none h-36"
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -228,56 +225,7 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 					)}
 				/>
 
-				{isAdmin && (
-					<FormField
-						control={form.control}
-						name="tags"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Tags (Admin Only)</FormLabel>
-								<FormControl>
-									<Input placeholder="react, ui, components" {...field} />
-								</FormControl>
-								<FormDescription>Comma-separated list of relevant tags.</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				)}
-
 				<div className="flex items-center space-x-4 pt-2">
-					<FormField
-						control={form.control}
-						name="openSource"
-						render={({ field }) => (
-							<FormItem className="flex flex-row items-center space-x-2">
-								<FormControl>
-									<Checkbox
-										checked={field.value}
-										onCheckedChange={field.onChange}
-										id="openSource"
-									/>
-								</FormControl>
-								<FormLabel htmlFor="openSource" className="text-sm font-normal cursor-pointer">
-									Open Source
-								</FormLabel>
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="paid"
-						render={({ field }) => (
-							<FormItem className="flex flex-row items-center space-x-2">
-								<FormControl>
-									<Checkbox checked={field.value} onCheckedChange={field.onChange} id="paid" />
-								</FormControl>
-								<FormLabel htmlFor="paid" className="text-sm font-normal cursor-pointer">
-									Paid
-								</FormLabel>
-							</FormItem>
-						)}
-					/>
 					{isAdmin && (
 						<FormField
 							control={form.control}
@@ -303,7 +251,7 @@ export const SubmissionForm = ({ categories }: SubmissionFormProps) => {
 				<Button
 					type="submit"
 					disabled={isSubmitting}
-					className="w-full bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 font-bold cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors"
+					className="w-full bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors"
 				>
 					{isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
 					Submit Resource
