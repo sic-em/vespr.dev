@@ -3,6 +3,7 @@
 import type { SectionItem } from '@/components/ui/section';
 import { auth } from '@/lib/auth';
 import db from '@/lib/db';
+import { redis } from '@/lib/redis';
 import { type SubmissionSchema, submissionSchema } from '@/lib/schemas';
 import { type Category, ResourceStatus } from '@/prisma/app/generated/prisma/client';
 import type { OpenGraphMetadata } from '@/types/opengraph';
@@ -220,6 +221,32 @@ export async function getResource(id: string) {
 			user: true,
 		},
 	});
+
+	if (!resource) {
+		return null;
+	}
+
+	try {
+		const headerList = await headers();
+		const ip = headerList.get('x-forwarded-for') || headerList.get('remote-addr') || 'unknown';
+
+		if (ip !== 'unknown') {
+			const redisKey = `views:${id}`;
+			const added = await redis.sadd(redisKey, ip);
+
+			if (added === 1) {
+				const updatedResource = await db.resource.update({
+					where: { id },
+					data: { views: { increment: 1 } },
+					select: { views: true },
+				});
+				resource.views = updatedResource.views;
+			}
+		}
+	} catch (error) {
+		console.error('Error incrementing view count:', error);
+	}
+
 	return resource;
 }
 
@@ -254,4 +281,68 @@ export async function getSimilarResources(
 	});
 
 	return similarResources as SectionItem[];
+}
+
+export async function toggleBookmarkResource(resourceId: string) {
+	const session = await auth.api.getSession({ headers: await headers() });
+	if (!session?.user?.id) {
+		return { success: false, message: 'Authentication required.' };
+	}
+
+	const userId = session.user.id;
+
+	try {
+		let isBookmarked = false;
+		let newBookmarkCount = 0;
+
+		await db.$transaction(async (tx) => {
+			const existingBookmark = await tx.userResourceBookmark.findUnique({
+				where: { userId_resourceId: { userId, resourceId } },
+			});
+
+			if (existingBookmark) {
+				await tx.userResourceBookmark.delete({
+					where: { userId_resourceId: { userId, resourceId } },
+				});
+
+				const updatedResource = await tx.resource.update({
+					where: { id: resourceId },
+					data: { bookmarkCount: { decrement: 1 } },
+					select: { bookmarkCount: true },
+				});
+				isBookmarked = false;
+				newBookmarkCount = updatedResource.bookmarkCount;
+			} else {
+				await tx.userResourceBookmark.create({
+					data: { userId, resourceId },
+				});
+
+				const updatedResource = await tx.resource.update({
+					where: { id: resourceId },
+					data: { bookmarkCount: { increment: 1 } },
+					select: { bookmarkCount: true },
+				});
+				isBookmarked = true;
+				newBookmarkCount = updatedResource.bookmarkCount;
+			}
+		});
+
+		const resource = await db.resource.findUnique({
+			where: { id: resourceId },
+			select: { category: { select: { slug: true } } },
+		});
+
+		if (resource?.category?.slug) {
+			revalidatePath(`/browse/${resource.category.slug}/${resourceId}`);
+		}
+
+		return {
+			success: true,
+			newBookmarkCount,
+			isBookmarked,
+		};
+	} catch (error) {
+		console.error('Error toggling bookmark:', error);
+		return { success: false, message: 'Failed to update bookmark status.' };
+	}
 }
