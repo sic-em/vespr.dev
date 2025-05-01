@@ -9,6 +9,8 @@ import {
 	CircleHelpIcon,
 	FileIcon,
 	FileTextIcon,
+	HandMetalIcon,
+	ImagesIcon,
 	LayoutDashboardIcon,
 	LibraryIcon,
 	ServerIcon,
@@ -30,7 +32,9 @@ const categoryIcons = {
 	articles: FileTextIcon,
 	icons: FileIcon,
 	fonts: TypeIcon,
-	inspiration: SparklesIcon,
+	vibing: HandMetalIcon,
+	illustrations: ImagesIcon,
+	'ui-ux': SparklesIcon,
 	misc: CircleHelpIcon,
 };
 

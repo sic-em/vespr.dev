@@ -1,8 +1,5 @@
 'use client';
 
-import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
-
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
 	CommandDialog,
@@ -12,6 +9,7 @@ import {
 	CommandItem,
 	CommandList,
 } from '@/components/ui/command';
+import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
 import { SearchIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
@@ -119,7 +117,7 @@ export const CmdKSearch = ({ categories, resources }: CmdKSearchProps) => {
 					onValueChange={setSearch}
 				/>
 				{/* Category Filter Pills */}
-				<div className="flex flex-wrap gap-2 px-4 py-2 border-b">
+				{/* <div className="flex flex-wrap gap-2 px-4 py-2 border-b border-dashed">
 					<Badge
 						variant={selectedCategory === null ? 'default' : 'outline'}
 						className="cursor-pointer"
@@ -137,7 +135,7 @@ export const CmdKSearch = ({ categories, resources }: CmdKSearchProps) => {
 							{category.name}
 						</Badge>
 					))}
-				</div>
+				</div> */}
 				<CommandList>
 					<CommandEmpty>No results found.</CommandEmpty>
 					{Object.keys(resourcesByCategory).length === 0 &&

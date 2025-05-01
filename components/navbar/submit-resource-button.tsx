@@ -4,7 +4,6 @@ import { SubmissionForm } from '@/components/navbar/submission-form';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { auth } from '@/lib/auth';
-import { PlusIcon } from 'lucide-react';
 import { headers } from 'next/headers';
 
 export const SubmitResourceButton = async () => {
@@ -16,8 +15,7 @@ export const SubmitResourceButton = async () => {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button className="bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 font-bold cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors shadow-md">
-					<PlusIcon className="w-4 h-4" />
+				<Button className="bg-gradient-to-b from-pink-800 to-pink-900 rounded-[8px] hover:bg-pink-900 cursor-pointer text-white hover:from-pink-700 hover:to-pink-800 duration-300 ease-in-out transition-colors shadow-md">
 					Submit
 				</Button>
 			</PopoverTrigger>

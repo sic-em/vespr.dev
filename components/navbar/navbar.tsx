@@ -13,7 +13,7 @@ export const Navbar = async () => {
 	const resources = await getResources();
 
 	return (
-		<nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+		<nav className="sticky top-0 z-50 w-full border-b border-dashed bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/90">
 			<div className="flex items-center justify-between gap-2 md:gap-4 px-6 py-4">
 				<div className="flex items-center gap-6">
 					<Logo />
@@ -21,10 +21,10 @@ export const Navbar = async () => {
 						<Link href="/browse" className={cn(buttonVariants({ variant: 'ghost' }))}>
 							Browse
 						</Link>
-						<CategorySelect categories={categories} />
 						<Link href="/newsletter" className={cn(buttonVariants({ variant: 'ghost' }))}>
 							Newsletter
 						</Link>
+						<CategorySelect categories={categories} />
 					</div>
 				</div>
 				<div className="flex items-center gap-4">

@@ -11,7 +11,9 @@ const categories = [
 	{ name: 'Articles', slug: 'articles' },
 	{ name: 'Icons', slug: 'icons' },
 	{ name: 'Fonts', slug: 'fonts' },
-	{ name: 'Inspiration', slug: 'inspiration' },
+	{ name: 'Illustrations', slug: 'illustrations' },
+	{ name: 'UI/UX', slug: 'ui-ux' },
+	{ name: 'Vibing', slug: 'vibing' },
 	{ name: 'Misc', slug: 'misc' },
 ];
 

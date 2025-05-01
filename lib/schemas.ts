@@ -6,9 +6,6 @@ export const submissionSchema = z.object({
 	description: z.string().min(10, { message: 'Description must be at least 10 characters.' }),
 	imageUrl: z.string().url({ message: 'Please provide a valid image URL.' }),
 	categoryId: z.string().uuid({ message: 'Please select a category.' }),
-	tags: z.string().optional(), // Comma-separated tags
-	openSource: z.boolean(),
-	paid: z.boolean(),
 	recommended: z.boolean(),
 });
 
