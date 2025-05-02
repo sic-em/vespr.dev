@@ -253,7 +253,7 @@ export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) =
 				<Button
 					type="submit"
 					disabled={isSubmitting}
-					className="w-full bg-gradient-to-b from-blue-200 to-blue-300 hover:bg-blue-300 cursor-pointer text-blue-900 hover:from-blue-100 hover:to-blue-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
+					className="w-full bg-gradient-to-b from-pink-200 to-pink-300 hover:bg-pink-300 cursor-pointer text-pink-900 hover:from-pink-100 hover:to-pink-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
 				>
 					{isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
 					Submit Resource
