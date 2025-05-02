@@ -1,89 +1,63 @@
 'use client';
 
-import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
-import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react';
 
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
 
 export const FooterLogo = () => {
 	const textRef = useRef<HTMLDivElement>(null);
-	const charsRef = useRef<Element[]>([]);
-	const timelineRef = useRef<gsap.core.Timeline | null>(null);
-	const [ready, setReady] = useState(false);
+	const originalText = 'VESPR.DEV';
 
 	useEffect(() => {
-		if (!textRef.current) return;
+		const element = textRef.current;
+		if (!element) return;
 
-		setReady(true);
-
-		const splitText = new SplitText(textRef.current, { type: 'chars' });
-		const chars = splitText.chars;
-		charsRef.current = chars;
-
-		const tl = gsap.timeline();
-		timelineRef.current = tl;
-
-		tl.from(chars, {
-			opacity: 0,
-			y: 100,
-			rotationX: -90,
-			stagger: 0.05,
-			duration: 0.8,
-			ease: 'back.out(1.7)',
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: element,
+				start: 'top 80%',
+				toggleActions: 'play none none none',
+			},
 		});
 
-		gsap.set(chars, {
-			className:
-				'text-[380px] font-extrabold select-none leading-none whitespace-nowrap text-muted-foreground/30 origin-bottom cursor-pointer',
+		tl.to(element, {
+			duration: 1,
+			scrambleText: {
+				text: '*********',
+				chars: 'lowerCase',
+				revealDelay: 0.4,
+				speed: 0.3,
+			},
 		});
-
-		const handleMouseEnter = (char: Element) => {
-			gsap.to(char, {
-				y: -30,
-				scale: 1.05,
-				duration: 0.4,
-				ease: 'power2.out',
-				overwrite: true,
-			});
-		};
-
-		const handleMouseLeave = (char: Element) => {
-			gsap.to(char, {
-				y: 0,
-				scale: 1,
-				duration: 0.4,
-				ease: 'power2.in',
-				overwrite: true,
-			});
-		};
-
-		for (const char of chars) {
-			char.addEventListener('mouseenter', () => handleMouseEnter(char));
-			char.addEventListener('mouseleave', () => handleMouseLeave(char));
-		}
+		tl.to(element, {
+			duration: 1,
+			scrambleText: {
+				text: originalText,
+				chars: 'upperCase',
+				speed: 0.3,
+			},
+			delay: 0.1,
+		});
 
 		return () => {
-			for (const char of chars) {
-				char.removeEventListener('mouseenter', () => handleMouseEnter(char));
-				char.removeEventListener('mouseleave', () => handleMouseLeave(char));
+			if (tl.scrollTrigger) {
+				tl.scrollTrigger.kill();
 			}
-			if (timelineRef.current) timelineRef.current.kill();
-			splitText.revert();
+			tl.kill();
 		};
 	}, []);
 
 	return (
-		<div className="relative overflow-hidden">
-			<div ref={textRef} className={`whitespace-nowrap ${ready ? 'opacity-100' : 'opacity-0'}`}>
-				vespr
+		<div className="mt-6 w-full flex justify-center">
+			<div
+				ref={textRef}
+				className="hidden md:block text-muted-foreground/20 leading-none font-bold tracking-tighter cursor-pointer md:text-[150px] lg:text-[200px] xl:text-[300px]"
+			>
+				{originalText}
 			</div>
-
-			{!ready && (
-				<div className="absolute inset-0 text-[380px] font-extrabold leading-none whitespace-nowrap text-muted-foreground/30 opacity-0">
-					vespr
-				</div>
-			)}
 		</div>
 	);
 };
