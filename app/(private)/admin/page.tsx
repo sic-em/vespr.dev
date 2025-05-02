@@ -18,5 +18,9 @@ export default async function AdminPage() {
 		redirect('/');
 	}
 
-	return <div>Admin</div>;
+	return (
+		<div className="flex min-h-screen flex-col items-center justify-start px-4 sm:px-6 pt-6 pb-16">
+			Admin
+		</div>
+	);
 }
