@@ -1,9 +1,11 @@
 'use client';
 
+import type { User } from '@/prisma/app/generated/prisma/client';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
+import { ContributorList } from './contributor-list';
 
-export const Hero = () => {
+export const Hero = ({ contributors }: { contributors: User[] }) => {
 	const heroRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -33,7 +35,12 @@ export const Hero = () => {
 			<h2 className="text-3xl md:text-4xl lg:text-3xl font-bold tracking-tight text-center text-balance mt-2">
 				Everything You Need. Nothing You Don&apos;t.
 			</h2>
-			<p className="text-muted-foreground text-sm">by Vespr</p>
+			<div className="mt-6">
+				<p className="text-muted-foreground text-sm text-center mb-4">
+					Curated resources for your next project. Built by the community.
+				</p>
+				<ContributorList contributors={contributors} />
+			</div>
 		</div>
 	);
 };
