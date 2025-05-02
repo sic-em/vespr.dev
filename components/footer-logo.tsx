@@ -9,13 +9,14 @@ gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
 
 export const FooterLogo = () => {
 	const textRef = useRef<HTMLDivElement>(null);
+	const tlHover = useRef<gsap.core.Timeline | null>(null);
 	const originalText = 'VESPR.DEV';
 
 	useEffect(() => {
 		const element = textRef.current;
 		if (!element) return;
 
-		const tl = gsap.timeline({
+		const tlScroll = gsap.timeline({
 			scrollTrigger: {
 				trigger: element,
 				start: 'top 80%',
@@ -23,7 +24,7 @@ export const FooterLogo = () => {
 			},
 		});
 
-		tl.to(element, {
+		tlScroll.to(element, {
 			duration: 1,
 			scrambleText: {
 				text: '*********',
@@ -32,7 +33,7 @@ export const FooterLogo = () => {
 				speed: 0.3,
 			},
 		});
-		tl.to(element, {
+		tlScroll.to(element, {
 			duration: 1,
 			scrambleText: {
 				text: originalText,
@@ -42,11 +43,58 @@ export const FooterLogo = () => {
 			delay: 0.1,
 		});
 
-		return () => {
-			if (tl.scrollTrigger) {
-				tl.scrollTrigger.kill();
+		const handleMouseEnter = () => {
+			if (tlHover.current) {
+				tlHover.current.kill();
 			}
-			tl.kill();
+			tlHover.current = gsap.timeline();
+			tlHover.current.to(element, {
+				duration: 1,
+				scrambleText: {
+					text: '*********',
+					chars: 'lowerCase',
+					revealDelay: 0.4,
+					speed: 0.3,
+				},
+			});
+			tlHover.current.to(element, {
+				duration: 1,
+				scrambleText: {
+					text: originalText,
+					chars: 'upperCase',
+					speed: 0.3,
+				},
+				delay: 0.1,
+			});
+		};
+
+		const handleMouseLeave = () => {
+			if (tlHover.current) {
+				tlHover.current.kill();
+			}
+			gsap.to(element, {
+				duration: 0.3,
+				scrambleText: { text: originalText, chars: 'upperCase' },
+			});
+		};
+
+		element.addEventListener('mouseenter', handleMouseEnter);
+		element.addEventListener('mouseleave', handleMouseLeave);
+
+		return () => {
+			if (tlScroll.scrollTrigger) {
+				tlScroll.scrollTrigger.kill();
+			}
+			tlScroll.kill();
+
+			if (tlHover.current) {
+				tlHover.current.kill();
+			}
+
+			if (element) {
+				element.removeEventListener('mouseenter', handleMouseEnter);
+				element.removeEventListener('mouseleave', handleMouseLeave);
+			}
 		};
 	}, []);
 
