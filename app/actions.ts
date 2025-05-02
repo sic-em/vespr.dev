@@ -262,7 +262,7 @@ export async function getSimilarResources(
 				id: currentItemId,
 			},
 		},
-		take: 6,
+		take: 5,
 		orderBy: {
 			createdAt: 'desc',
 		},
@@ -345,4 +345,41 @@ export async function toggleBookmarkResource(resourceId: string) {
 		console.error('Error toggling bookmark:', error);
 		return { success: false, message: 'Failed to update bookmark status.' };
 	}
+}
+
+export async function getUser(username: string) {
+	const user = await db.user.findUnique({
+		where: { username },
+		include: {
+			resources: {
+				where: {
+					status: ResourceStatus.APPROVED,
+				},
+				orderBy: {
+					createdAt: 'desc',
+				},
+				include: {
+					category: true,
+				},
+			},
+		},
+	});
+
+	if (!user) {
+		return null;
+	}
+
+	return user;
+}
+
+export async function getContributors() {
+	const contributors = await db.user.findMany({
+		where: {
+			resources: { some: { status: ResourceStatus.APPROVED } },
+		},
+		orderBy: { createdAt: 'desc' },
+		take: 12,
+	});
+
+	return contributors;
 }

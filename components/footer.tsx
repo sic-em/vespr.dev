@@ -22,7 +22,7 @@ export const Footer = async () => {
 	const categories = await getCategories();
 
 	return (
-		<footer className="border-t border-dashed pt-8 mt-16 md:pb-0 pb-16 relative md:h-[600px] h-full overflow-hidden">
+		<footer className="border-t border-dashed pt-8 md:pb-0 pb-16 relative md:h-[600px] h-full overflow-hidden">
 			<div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 pt-6">
 				<div className="md:grid md:grid-cols-3 md:justify-items-center flex flex-col-reverse md:gap-8 gap-10">
 					{/* Newsletter */}

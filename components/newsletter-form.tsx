@@ -3,11 +3,16 @@
 import { subscribeToNewsletter } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-export const NewsletterForm = () => {
+interface NewsletterFormProps {
+	className?: string;
+}
+
+export const NewsletterForm = ({ className }: NewsletterFormProps) => {
 	const [email, setEmail] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -39,7 +44,7 @@ export const NewsletterForm = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="flex gap-2 w-full items-start">
+		<form onSubmit={handleSubmit} className={cn('flex gap-2 w-full items-start', className)}>
 			<Input
 				type="email"
 				placeholder="Enter your email"
@@ -51,7 +56,7 @@ export const NewsletterForm = () => {
 			/>
 			<Button
 				type="submit"
-				className="flex-shrink-0 h-9 bg-gradient-to-b from-blue-200 to-blue-300 hover:bg-blue-300 cursor-pointer text-blue-900 hover:from-blue-100 hover:to-blue-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
+				className="flex-shrink-0 h-9 bg-gradient-to-b from-pink-200 to-pink-300 hover:bg-pink-300 cursor-pointer text-pink-900 hover:from-pink-100 hover:to-pink-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
 				disabled={isLoading}
 			>
 				{isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Subscribe'}
