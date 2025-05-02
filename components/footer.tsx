@@ -1,7 +1,7 @@
 import { getCategories } from '@/app/actions';
-import { FooterLogo } from '@/components/footer-logo';
-import { NewsletterForm } from '@/components/newsletter-form';
 import Link from 'next/link';
+import { FooterLogo } from './footer-logo';
+import { NewsletterForm } from './newsletter-form';
 
 const navigation = [
 	{
@@ -18,58 +18,97 @@ const navigation = [
 	},
 ];
 
+const legal = [
+	{
+		label: 'Privacy Policy',
+		href: '/privacy',
+	},
+	{
+		label: 'Terms of Service',
+		href: '/terms',
+	},
+];
+
 export const Footer = async () => {
 	const categories = await getCategories();
 
 	return (
-		<footer className="border-t border-dashed pt-8 md:pb-0 pb-16 relative md:h-[600px] h-full overflow-hidden">
-			<div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 pt-6">
-				<div className="md:grid md:grid-cols-3 md:justify-items-center flex flex-col-reverse md:gap-8 gap-10">
-					{/* Newsletter */}
-					<div className="flex flex-col gap-4">
-						<h3 className="text-base">Get the latest resources</h3>
-						<div className="flex flex-col gap-2 m-0 w-full items-start">
-							<NewsletterForm />
-							<p className="sm:text-[12px] text-[10px] text-muted-foreground">
-								Subscribe to our newsletter to get the latest resources in your inbox.
-							</p>
+		<footer className="bg-muted/10 px-7 py-6">
+			{/* Top border */}
+			<div className="border-t border-dashed mb-6" />
+
+			{/* Main Grid */}
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 md:gap-6">
+				{/* Left section */}
+				<div className="flex flex-col justify-between">
+					<p className="text-lg text-muted-foreground mb-6">
+						Friends let friends know about
+						<br />
+						fresh resources and content.
+					</p>
+
+					<NewsletterForm className="w-full max-w-md" />
+				</div>
+
+				{/* Right section */}
+				<div className="mt-8 grid grid-cols-1 gap-y-8 md:mt-0 md:grid-cols-2 md:gap-4 md:border-l md:border-dashed md:border-border md:pl-6">
+					{/* Navigation column */}
+					<div className="flex flex-col justify-between">
+						<div>
+							<h3 className="font-medium mb-3">Navigation</h3>
+							<ul className="space-y-2">
+								{navigation.map((item) => (
+									<li key={item.href}>
+										<Link
+											href={item.href}
+											className="hover:underline decoration-dashed underline-offset-4 text-muted-foreground hover:text-foreground duration-200 ease-in-out transition-colors"
+										>
+											{item.label}
+										</Link>
+									</li>
+								))}
+							</ul>
+						</div>
+
+						<div className="mt-auto pt-4">
+							<ul className="flex flex-col space-y-2">
+								{legal.map((item) => (
+									<li key={item.href}>
+										<Link
+											href={item.href}
+											className="hover:underline decoration-dashed underline-offset-4 text-muted-foreground hover:text-foreground duration-200 ease-in-out transition-colors"
+										>
+											{item.label}
+										</Link>
+									</li>
+								))}
+							</ul>
 						</div>
 					</div>
-					{/* Navigation */}
-					<div className="flex flex-col gap-4">
-						<h3 className="text-base">Navigation</h3>
-						<div className="flex flex-col gap-2">
-							{navigation.map((item) => (
-								<Link
-									key={item.href}
-									href={item.href}
-									className="text-sm text-muted-foreground hover:text-primary hover:underline underline-offset-4 decoration-dashed transition-colors duration-150 flex items-center gap-1 group w-fit"
-								>
-									{item.label}
-								</Link>
+
+					{/* Categories column */}
+					<div>
+						<h3 className="font-medium mb-3">Categories</h3>
+						<ul className="space-y-2">
+							{categories.map((category) => (
+								<li key={category.id}>
+									<Link
+										href={`/browse/${category.slug}`}
+										className="hover:underline decoration-dashed underline-offset-4 text-muted-foreground hover:text-foreground duration-200 ease-in-out transition-colors"
+									>
+										{category.name}
+									</Link>
+								</li>
 							))}
-						</div>
-					</div>
-					{/* Categories */}
-					<div className="flex flex-col gap-4">
-						<h3 className="text-base">Categories</h3>
-						<div className="flex flex-col gap-2">
-							{categories.slice(0, 8).map((category) => (
-								<Link
-									key={category.id}
-									href={`/browse/${category.slug}`}
-									className="text-sm text-muted-foreground hover:text-primary hover:underline underline-offset-4 decoration-dashed transition-colors duration-150 flex items-center gap-1 group w-fit"
-								>
-									{category.name}
-								</Link>
-							))}
-						</div>
+						</ul>
 					</div>
 				</div>
 			</div>
-			<div className="md:flex hidden items-center justify-center absolute inset-0 h-fit translate-y-[360px]">
-				<FooterLogo />
-			</div>
+
+			<div className="hidden md:block border-t border-dashed mt-6" />
+
+			{/* Logo */}
+			<FooterLogo />
 		</footer>
 	);
 };

@@ -63,7 +63,7 @@ export function ItemCard({ item }: ItemCardProps) {
 					</h3>
 				</ViewTransition>
 				<ViewTransition name={`desc-${item.id}`}>
-					<p className="line-clamp-3 text-sm text-muted-foreground">{item.description}</p>
+					<p className="line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
 				</ViewTransition>
 			</div>
 		</div>

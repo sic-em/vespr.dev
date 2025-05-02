@@ -7,19 +7,19 @@ import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ArrowUpRight } from 'lucide-react';
-import { Geist } from 'next/font/google';
 import Link from 'next/link';
+
+import localFont from 'next/font/local';
+
+const font = localFont({
+	src: '../fonts/DepartureMono-Regular.otf',
+	display: 'swap',
+});
 
 export const metadata: Metadata = {
 	title: 'Vespr',
 	description: 'A collection of resources for the modern web developer',
 };
-
-const geistMono = Geist({
-	subsets: ['latin'],
-	weight: ['400', '500', '600', '700'],
-	display: 'swap',
-});
 
 export default function RootLayout({
 	children,
@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={cn(geistMono.className, '')}>
+			<body className={cn(font.className, 'antialiased')}>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
@@ -37,7 +37,7 @@ export default function RootLayout({
 				>
 					<Link href="/blog/welcome">
 						<Banner variant="rainbow" className="group h-[2.5rem] md:text-sm text-xs">
-							<p className="group-hover:underline underline-offset-4 decoration-dashed lowercase">
+							<p className="group-hover:underline underline-offset-4 decoration-dashed">
 								✨ Welcome to Vespr! We&apos;re excited to have you here
 							</p>
 							<ArrowUpRight

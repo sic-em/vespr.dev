@@ -2,16 +2,19 @@ import { getCategories, getResources } from '@/app/actions';
 import { Logo } from '@/components/logo';
 import { CategorySelect } from '@/components/navbar/category-select';
 import { CmdKSearch } from '@/components/navbar/cmdk-search';
+import { MobileNav } from '@/components/navbar/mobile-nav';
 import { SubmitResourceButton } from '@/components/navbar/submit-resource-button';
 import { buttonVariants } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { auth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
+import { headers } from 'next/headers';
 import Link from 'next/link';
-import { MobileNav } from './mobile-nav';
 
 export const Navbar = async () => {
 	const categories = await getCategories();
 	const resources = await getResources();
+	const session = await auth.api.getSession({ headers: await headers() });
 
 	return (
 		<nav className="sticky top-0 z-50 w-full border-b border-dashed bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/90">
@@ -27,6 +30,11 @@ export const Navbar = async () => {
 							Newsletter
 						</Link>
 						<CategorySelect categories={categories} />
+						{session?.user?.role === 'admin' && (
+							<Link href="/admin" className={cn(buttonVariants({ variant: 'ghost' }))}>
+								Admin
+							</Link>
+						)}
 					</div>
 				</div>
 				<div className="flex items-center gap-4">
