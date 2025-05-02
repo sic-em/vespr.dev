@@ -2,10 +2,13 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar/navbar';
+import { Banner } from '@/components/ui/banner';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { ArrowUpRight } from 'lucide-react';
 import { Geist } from 'next/font/google';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
 	title: 'Vespr',
@@ -32,6 +35,17 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
+					<Link href="/blog/welcome">
+						<Banner variant="rainbow" className="group h-[2.5rem] md:text-sm text-xs">
+							<p className="group-hover:underline underline-offset-4 decoration-dashed lowercase">
+								✨ Welcome to Vespr! We&apos;re excited to have you here
+							</p>
+							<ArrowUpRight
+								className="size-3.5 ml-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 ease-out shrink-0"
+								strokeWidth={2}
+							/>
+						</Banner>
+					</Link>
 					<Navbar />
 					{children}
 					<Footer />

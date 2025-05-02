@@ -132,4 +132,71 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	@keyframes moving-banner {
+		from {
+			background-position: 0% 0;
+		}
+		to {
+			background-position: 100% 0;
+		}
+	}
+
+	.rainbow-banner-gradient-1 {
+		mask-image: linear-gradient(to bottom, white, transparent),
+			radial-gradient(circle at top center, white, transparent);
+		mask-composite: intersect;
+		animation: moving-banner 16s linear infinite reverse;
+		--start: rgba(255, 105, 180, 0.6);
+		--mid: rgba(0, 255, 127, 0.7);
+		--end: rgba(255, 215, 0, 0.5);
+		--via: rgba(138, 43, 226, 0.6);
+		background-image: repeating-linear-gradient(
+			60deg,
+			var(--end),
+			var(--start) 2%,
+			var(--start) 5%,
+			transparent 8%,
+			transparent 14%,
+			var(--via) 18%,
+			var(--via) 22%,
+			var(--mid) 28%,
+			var(--mid) 30%,
+			var(--via) 34%,
+			var(--via) 36%,
+			transparent,
+			var(--end) calc(50% - 12px)
+		);
+		background-size: 200% 100%;
+		mix-blend-mode: difference;
+	}
+
+	.rainbow-banner-gradient-2 {
+		mask-image: linear-gradient(to bottom, white, transparent),
+			radial-gradient(circle at top center, white, transparent);
+		mask-composite: intersect;
+		animation: moving-banner 20s linear infinite;
+		--start: rgba(255, 69, 0, 0.6);
+		--mid: rgba(0, 191, 255, 0.7);
+		--end: rgba(147, 112, 219, 0.6);
+		--via: rgba(50, 205, 50, 0.6);
+		background-image: repeating-linear-gradient(
+			45deg,
+			var(--end),
+			var(--start) 4%,
+			var(--start) 8%,
+			transparent 9%,
+			transparent 14%,
+			var(--mid) 16%,
+			var(--mid) 20%,
+			transparent,
+			var(--via) 36%,
+			var(--via) 40%,
+			transparent 42%,
+			var(--end) 46%,
+			var(--end) calc(50% - 16.8px)
+		);
+		background-size: 200% 100%;
+		mix-blend-mode: color-dodge;
+	}
 }
