@@ -1,8 +1,11 @@
 'use client';
 
+import { LinkIcon } from '@/components/icons';
+import { DollarIcon } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import type { SectionItem } from '@/components/ui/section';
-import { LinkIcon, SparklesIcon } from 'lucide-react';
+import { ResourcePrice } from '@/prisma/app/generated/prisma/client';
+import { SparklesIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { unstable_ViewTransition as ViewTransition } from 'react';
@@ -37,28 +40,40 @@ export function ItemCard({ item }: ItemCardProps) {
 								target.srcset = placeholderImage;
 								target.src = placeholderImage;
 							}}
+							priority
 						/>
 					</ViewTransition>
 				</Link>
-				{isNew && (
-					<Badge className="absolute top-2 right-2 px-2 py-0.5 rounded-[8px] bg-gradient-to-b from-pink-200 to-pink-300 text-pink-900 text-xs shadow-md select-none">
-						<SparklesIcon className="w-4 h-4 fill-pink-900" />
-						NEW
-					</Badge>
-				)}
+
+				<ViewTransition name={`badges-${item.id}`}>
+					<div className="flex items-center gap-2 absolute top-2 right-2">
+						{isNew && (
+							<Badge variant="accent" className="px-2 py-0.5 rounded-[8px] ">
+								<SparklesIcon className="w-4 h-4 fill-purple-900" />
+								NEW
+							</Badge>
+						)}
+						{item.price === ResourcePrice.PAID && (
+							<Badge variant="accent" className="px-2 py-0.5 rounded-[8px] ">
+								<DollarIcon className="w-4 h-4 fill-purple-900" />
+								PAID
+							</Badge>
+						)}
+					</div>
+				</ViewTransition>
 			</div>
 			<div className="mt-2">
 				<Link
 					href={`${item.url}?ref=vespr.dev`}
-					className="text-xs text-pink-300 hover:underline flex items-center gap-1"
+					className="text-xs text-purple-300 hover:underline decoration-dashed underline-offset-2 flex items-center gap-1"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<LinkIcon className="w-3 h-3 text-pink-300" />
+					<LinkIcon className="w-3 h-3 text-purple-300" />
 					{item.url.replace(/^(https?:\/\/)?(www\.)?([^\/]+).*$/, '$3')}
 				</Link>
 				<ViewTransition name={`title-${item.id}`}>
-					<h3 className="line-clamp-1 text-base font-medium leading-tight text-foreground">
+					<h3 className="line-clamp-1 text-base font-semibold leading-tight text-foreground">
 						{displayName}
 					</h3>
 				</ViewTransition>
