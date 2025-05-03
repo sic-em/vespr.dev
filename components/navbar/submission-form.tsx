@@ -1,8 +1,8 @@
 'use client';
 
 import { fetchOpenGraphMetadata, submitResource } from '@/app/actions';
+import { Spinner } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
 	Form,
 	FormControl,
@@ -12,6 +12,8 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
 	Select,
 	SelectContent,
@@ -20,15 +22,14 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { authClient } from '@/lib/auth-client';
 import { type SubmissionSchema, submissionSchema } from '@/lib/schemas';
 import type { Category } from '@/prisma/app/generated/prisma/client';
+import { ResourcePrice } from '@/prisma/app/generated/prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { debounce } from 'lodash-es';
-import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useState, useTransition } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState, useTransition } from 'react';
 import { type SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -40,12 +41,11 @@ interface SubmissionFormProps {
 }
 
 export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) => {
-	const { data: session } = authClient.useSession();
-	const isAdmin = session?.user?.role === 'admin';
 	const router = useRouter();
 
 	const [isUrlLoading, setIsUrlLoading] = useState(false);
 	const [isSubmitting, startTransition] = useTransition();
+	const priceRadioGroupId = useId();
 
 	const form = useForm<SubmissionFormData>({
 		resolver: zodResolver(submissionSchema),
@@ -55,6 +55,7 @@ export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) =
 			description: '',
 			imageUrl: '',
 			categoryId: '',
+			price: ResourcePrice.FREE,
 			recommended: false,
 		},
 	});
@@ -142,7 +143,7 @@ export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) =
 								</FormControl>
 								{isUrlLoading && (
 									<div className="absolute right-2 top-1/2 -translate-y-1/2">
-										<Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+										<Spinner className="w-4 h-4 animate-spin text-muted-foreground" />
 									</div>
 								)}
 							</div>
@@ -227,35 +228,47 @@ export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) =
 					)}
 				/>
 
-				<div className="flex items-center space-x-4 pt-2">
-					{isAdmin && (
-						<FormField
-							control={form.control}
-							name="recommended"
-							render={({ field }) => (
-								<FormItem className="flex flex-row items-center space-x-2">
-									<FormControl>
-										<Checkbox
-											checked={field.value}
-											onCheckedChange={field.onChange}
-											id="recommended"
-										/>
-									</FormControl>
-									<FormLabel htmlFor="recommended" className="text-sm font-normal cursor-pointer">
-										Recommended
-									</FormLabel>
-								</FormItem>
-							)}
-						/>
+				<FormField
+					control={form.control}
+					name="price"
+					render={({ field }) => (
+						<FormItem className="space-y-3">
+							<FormLabel>Price Category</FormLabel>
+							<FormControl>
+								<RadioGroup
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+									className="gap-4"
+								>
+									<FormItem className="flex items-start gap-2">
+										<FormControl>
+											<RadioGroupItem value={ResourcePrice.FREE} id={`${priceRadioGroupId}-free`} />
+										</FormControl>
+										<div className="grid grow gap-1.5">
+											<Label htmlFor={`${priceRadioGroupId}-free`} className="font-normal">
+												Free
+											</Label>
+										</div>
+									</FormItem>
+									<FormItem className="flex items-start gap-2">
+										<FormControl>
+											<RadioGroupItem value={ResourcePrice.PAID} id={`${priceRadioGroupId}-paid`} />
+										</FormControl>
+										<div className="grid grow gap-1.5">
+											<Label htmlFor={`${priceRadioGroupId}-paid`} className="font-normal">
+												Paid
+											</Label>
+										</div>
+									</FormItem>
+								</RadioGroup>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
 					)}
-				</div>
+				/>
 
-				<Button
-					type="submit"
-					disabled={isSubmitting}
-					className="w-full bg-gradient-to-b from-pink-200 to-pink-300 hover:bg-pink-300 cursor-pointer text-pink-900 hover:from-pink-100 hover:to-pink-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
-				>
-					{isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+				<Button variant="accent" type="submit" disabled={isSubmitting} className="w-full">
+					{isSubmitting ? <Spinner className="w-4 h-4 mr-2 animate-spin" /> : null}
 					Submit Resource
 				</Button>
 			</form>
