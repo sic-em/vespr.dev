@@ -5,7 +5,7 @@ import ResourceGrid from '@/components/browse/resource-grid';
 import { Hero } from '@/components/hero';
 import { createSearchParamsCache, parseAsInteger, parseAsString } from 'nuqs/server';
 
-export const searchParamsCache = createSearchParamsCache({
+const searchParamsCache = createSearchParamsCache({
 	categoryId: parseAsString.withDefault(''),
 	page: parseAsInteger.withDefault(1),
 	search: parseAsString.withDefault(''),
