@@ -50,7 +50,7 @@ export function Banner({
 			{...props}
 			style={{ height: open ? height : '0' }}
 			className={cn(
-				'relative z-40 flex flex-row font-mono items-center justify-center bg-secondary px-4 text-center text-sm font-medium transition-all duration-300',
+				'relative z-40 flex flex-row font-mono items-center justify-center bg-secondary px-4 text-center text-sm font-semibold transition-all duration-300',
 				variant === 'rainbow' && 'bg-background',
 				!open && 'hidden',
 				props.className,
