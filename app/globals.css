@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@utility bg-noise {
+	background-image: url("https://raw.githubusercontent.com/languine-ai/languine/ba04eb9a68e63f78c3a9cb6da3d1370fa4ccfc27/apps/web/public/noise.png");
+	background-repeat: repeat;
+	background-size: 80px;
+}
+
 :root {
 	--radius: 0.625rem;
 	--card: oklch(1 0 0);
