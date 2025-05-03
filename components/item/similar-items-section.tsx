@@ -3,7 +3,7 @@ import type { Category } from '@/prisma/app/generated/prisma/client';
 
 interface SimilarItemsSectionProps {
 	items: SectionItem[];
-	category: Pick<Category, 'slug'>;
+	category: Pick<Category, 'id'>;
 }
 
 export function SimilarItemsSection({ items, category }: SimilarItemsSectionProps) {
@@ -14,7 +14,11 @@ export function SimilarItemsSection({ items, category }: SimilarItemsSectionProp
 	return (
 		<div className="w-full max-w-6xl mt-12">
 			<div className="mb-8 w-full border-t border-dashed" />
-			<Section title="Similar Items" items={items} viewAllHref={`/browse/${category.slug}`} />
+			<Section
+				title="Similar Items"
+				items={items}
+				viewAllHref={`/browse?categoryId=${category.id}`}
+			/>
 		</div>
 	);
 }

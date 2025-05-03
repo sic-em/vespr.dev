@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 
 type ResourceWithDetails = Pick<Resource, 'id' | 'createdAt' | 'userId'> & {
-	category: Pick<Category, 'slug' | 'name'>;
+	category: Pick<Category, 'id' | 'name'>;
 	user: Pick<User, 'id' | 'name' | 'image' | 'username'> | null;
 };
 
@@ -21,7 +21,7 @@ export function ItemDetailsSection({ resource }: ItemDetailsSectionProps) {
 			<div className="flex justify-between items-center">
 				<Label>Category</Label>
 				<Link
-					href={`/browse/${resource.category.slug}`}
+					href={`/browse?categoryId=${resource.category.id}`}
 					className="hover:underline decoration-dashed underline-offset-2"
 				>
 					{resource.category.name}
