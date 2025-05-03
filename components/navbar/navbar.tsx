@@ -1,13 +1,14 @@
 import { getCategories, getResources } from '@/app/actions';
-import { Logo } from '@/components/logo';
+import UserButton from '@/components/auth/user-button';
+import { LogoIcon } from '@/components/logo';
 import { CategorySelect } from '@/components/navbar/category-select';
 import { CmdKSearch } from '@/components/navbar/cmdk-search';
 import { MobileNav } from '@/components/navbar/mobile-nav';
 import { SubmitResourceButton } from '@/components/navbar/submit-resource-button';
 import { buttonVariants } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { auth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
+import type { User } from '@/prisma/app/generated/prisma/client';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 
@@ -17,10 +18,12 @@ export const Navbar = async () => {
 	const session = await auth.api.getSession({ headers: await headers() });
 
 	return (
-		<nav className="sticky top-0 z-50 w-full border-b border-dashed bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/90">
-			<div className="flex items-center justify-between gap-2 md:gap-4 px-6 py-4">
+		<nav className="sticky top-0 z-50 w-full border-b border-dashed  bg-noise">
+			<div className="flex items-center justify-between gap-2 md:gap-4 px-6 py-4 bg-background/95">
 				<div className="flex items-center gap-6">
-					<Logo />
+					<Link href="/">
+						<LogoIcon className="w-8 h-8" />
+					</Link>
 					{/* Navigation Links */}
 					<div className="hidden md:flex items-center gap-2">
 						<Link href="/browse" className={cn(buttonVariants({ variant: 'ghost' }))}>
@@ -41,7 +44,7 @@ export const Navbar = async () => {
 					{/* Right-side elements */}
 					<div className="hidden md:flex items-center gap-4">
 						<CmdKSearch categories={categories} resources={resources} />
-						<ThemeToggle />
+						{session?.user && <UserButton user={session.user as User} />}
 						<div className="h-6 w-[1px] bg-muted-foreground/20 rounded-full" />
 						<SubmitResourceButton />
 					</div>
