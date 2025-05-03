@@ -1,10 +1,10 @@
 'use client';
 
 import { subscribeToNewsletter } from '@/app/actions';
+import { Spinner } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -54,12 +54,8 @@ export const NewsletterForm = ({ className }: NewsletterFormProps) => {
 				className="flex-grow h-9"
 				disabled={isLoading}
 			/>
-			<Button
-				type="submit"
-				className="flex-shrink-0 h-9 bg-gradient-to-b from-pink-200 to-pink-300 hover:bg-pink-300 cursor-pointer text-pink-900 hover:from-pink-100 hover:to-pink-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95"
-				disabled={isLoading}
-			>
-				{isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Subscribe'}
+			<Button type="submit" variant="accent" className="flex-shrink-0 h-9" disabled={isLoading}>
+				{isLoading ? <Spinner className="w-4 h-4 animate-spin" /> : 'Subscribe'}
 			</Button>
 		</form>
 	);

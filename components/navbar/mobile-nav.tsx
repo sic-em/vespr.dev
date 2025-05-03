@@ -1,5 +1,6 @@
 'use client';
 
+import { BarsIcon } from '@/components/icons';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
 	Drawer,
@@ -13,7 +14,6 @@ import {
 import { cn } from '@/lib/utils';
 import type { Category } from '@/prisma/app/generated/prisma/client';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import type * as React from 'react';
 
@@ -27,7 +27,7 @@ export function MobileNav({ categories, submitButton }: MobileNavProps) {
 		<Drawer>
 			<DrawerTrigger asChild className="md:hidden">
 				<Button variant="ghost" size="icon">
-					<Menu className="h-5 w-5" />
+					<BarsIcon className="h-5 w-5" />
 				</Button>
 			</DrawerTrigger>
 			<DrawerContent>
@@ -61,11 +61,11 @@ export function MobileNav({ categories, submitButton }: MobileNavProps) {
 
 						<div className="w-full h-[1px] bg-muted/50 rounded-full my-3" />
 
-						<p className="text-sm font-medium text-muted-foreground px-2 mb-2">Categories</p>
+						<p className="text-sm font-semibold text-muted-foreground px-2 mb-2">Categories</p>
 						{categories.map((category) => (
 							<Link
 								key={category.id}
-								href={`/browse/${category.slug}`}
+								href={`/browse?categoryId=${category.id}`}
 								className={cn(
 									buttonVariants({ variant: 'ghost' }),
 									'w-full justify-start text-base font-normal px-2',

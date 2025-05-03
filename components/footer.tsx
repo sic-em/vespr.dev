@@ -33,7 +33,7 @@ export const Footer = async () => {
 	const categories = await getCategories();
 
 	return (
-		<footer className="bg-muted/10 px-7 py-6">
+		<footer className="bg-background/95 bg-noise px-7 py-6">
 			{/* Top border */}
 			<div className="border-t border-dashed mb-6" />
 
@@ -55,7 +55,7 @@ export const Footer = async () => {
 					{/* Navigation column */}
 					<div className="flex flex-col justify-between">
 						<div>
-							<h3 className="font-medium mb-3">Navigation</h3>
+							<h3 className="font-semibold mb-3">Navigation</h3>
 							<ul className="space-y-2">
 								{navigation.map((item) => (
 									<li key={item.href}>
@@ -88,12 +88,12 @@ export const Footer = async () => {
 
 					{/* Categories column */}
 					<div>
-						<h3 className="font-medium mb-3">Categories</h3>
+						<h3 className="font-semibold mb-3">Categories</h3>
 						<ul className="space-y-2">
 							{categories.map((category) => (
 								<li key={category.id}>
 									<Link
-										href={`/browse/${category.slug}`}
+										href={`/browse?categoryId=${category.id}`}
 										className="hover:underline decoration-dashed underline-offset-4 text-muted-foreground hover:text-foreground duration-200 ease-in-out transition-colors"
 									>
 										{category.name}
@@ -107,7 +107,6 @@ export const Footer = async () => {
 
 			<div className="hidden md:block border-t border-dashed mt-6" />
 
-			{/* Logo */}
 			<FooterLogo />
 		</footer>
 	);

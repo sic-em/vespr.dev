@@ -9,7 +9,10 @@ import { useEffect, useRef } from 'react';
 import { Button } from './button';
 import { ItemCard } from './item-card';
 
-export type SectionItem = Pick<Resource, 'id' | 'name' | 'description' | 'imageUrl' | 'url'> & {
+export type SectionItem = Pick<
+	Resource,
+	'id' | 'name' | 'description' | 'imageUrl' | 'url' | 'price'
+> & {
 	category: Pick<Category, 'slug'>;
 };
 
@@ -48,9 +51,9 @@ export function Section({ title, items, viewAllHref, delay = 0 }: SectionProps) 
 			<div className="px-4 sm:px-6 lg:px-8">
 				<div className="mb-4 flex items-center justify-between md:mb-6">
 					<ViewTransition>
-						<h2 className="text-xl font-bold tracking-tight md:text-2xl">{title}</h2>
+						<h2 className="text-lg font-bold tracking-tight md:text-xl">{title}</h2>
 					</ViewTransition>
-					<Button asChild variant="ghost" className="group text-sm font-medium rounded-[8px]">
+					<Button asChild variant="ghost" className="group text-sm font-semibold rounded-[8px]">
 						<Link href={viewAllHref} className="flex items-center">
 							View all
 							<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

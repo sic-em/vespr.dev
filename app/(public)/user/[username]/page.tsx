@@ -28,7 +28,7 @@ export default async function UserPage(props: UserPageProps) {
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-start px-4 sm:px-6 pt-6 pb-16">
 			<TooltipProvider delayDuration={100}>
-				<div className="w-full max-w-2xl p-4 md:p-6 font-mono bg-background">
+				<div className="w-full max-w-2xl p-4 md:p-6 font-mono bg-background bg-noise">
 					<UserProfileHeader user={user} />
 					<UserProfileDetails user={user} />
 					<UserProfileStats totalViews={totalViews} totalBookmarks={totalBookmarks} />

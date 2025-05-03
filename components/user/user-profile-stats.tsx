@@ -7,7 +7,7 @@ interface UserProfileStatsProps {
 
 export function UserProfileStats({ totalViews, totalBookmarks }: UserProfileStatsProps) {
 	return (
-		<div className="space-y-3 text-sm mb-8 pt-6 border-t border-dashed">
+		<div className="space-y-3 text-sm mb-6 pt-6 border-t border-dashed">
 			<div className="flex justify-between items-center">
 				<Label>Total Views</Label>
 				<span>{totalViews.toLocaleString()}</span>

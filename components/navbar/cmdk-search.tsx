@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
 	CommandDialog,
@@ -9,10 +10,16 @@ import {
 	CommandItem,
 	CommandList,
 } from '@/components/ui/command';
+import { cn } from '@/lib/utils';
 import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
-import { SearchIcon } from 'lucide-react';
+import { Anonymous_Pro } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
+
+const font = Anonymous_Pro({
+	weight: ['400', '700'],
+	subsets: ['latin'],
+});
 
 interface CmdKSearchProps {
 	categories: Category[];
@@ -106,8 +113,9 @@ export const CmdKSearch = ({ categories, resources }: CmdKSearchProps) => {
 					<SearchIcon className="w-4 h-4" />
 					<span className="ml-2">Search...</span>
 				</div>
-				<kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium text-muted-foreground bg-muted-foreground/20 opacity-100">
-					<span className="text-xs">⌘</span>K
+				<kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-semibold text-muted-foreground bg-muted-foreground/20 opacity-100">
+					<span className={cn(font.className, 'text-base font-bold mt-0.5')}>⌘</span>
+					<span className="text-xs font-bold">K</span>
 				</kbd>
 			</Button>
 			<CommandDialog open={open} onOpenChange={setOpen}>
@@ -116,27 +124,7 @@ export const CmdKSearch = ({ categories, resources }: CmdKSearchProps) => {
 					value={search}
 					onValueChange={setSearch}
 				/>
-				{/* Category Filter Pills */}
-				{/* <div className="flex flex-wrap gap-2 px-4 py-2 border-b border-dashed">
-					<Badge
-						variant={selectedCategory === null ? 'default' : 'outline'}
-						className="cursor-pointer"
-						onClick={() => setSelectedCategory(null)}
-					>
-						All
-					</Badge>
-					{categories.map((category) => (
-						<Badge
-							key={category.id}
-							variant={selectedCategory === category.id ? 'default' : 'outline'}
-							className="cursor-pointer"
-							onClick={() => setSelectedCategory(category.id)}
-						>
-							{category.name}
-						</Badge>
-					))}
-				</div> */}
-				<CommandList>
+				<CommandList className="max-h-[500px] overflow-y-auto">
 					<CommandEmpty>No results found.</CommandEmpty>
 					{Object.keys(resourcesByCategory).length === 0 &&
 						search === '' &&

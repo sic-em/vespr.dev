@@ -27,7 +27,7 @@ export const FooterLogo = () => {
 		tlScroll.to(element, {
 			duration: 1,
 			scrambleText: {
-				text: '*********',
+				text: '#####.###',
 				chars: 'lowerCase',
 				revealDelay: 0.4,
 				speed: 0.3,
@@ -51,7 +51,7 @@ export const FooterLogo = () => {
 			tlHover.current.to(element, {
 				duration: 1,
 				scrambleText: {
-					text: '*********',
+					text: '#####.###',
 					chars: 'lowerCase',
 					revealDelay: 0.4,
 					speed: 0.3,

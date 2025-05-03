@@ -1,10 +1,10 @@
 'use client';
 
 import { toggleBookmarkResource } from '@/app/actions';
+import { BookmarkIcon, CheckIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { gsap } from 'gsap';
-import { BookmarkIcon, CheckIcon } from 'lucide-react';
 import { useEffect, useOptimistic, useRef, useTransition } from 'react';
 import { toast } from 'sonner';
 
@@ -97,12 +97,10 @@ export function BookmarkButton({
 				/>
 				<BookmarkIcon
 					ref={filledIconRef}
-					className={cn('h-4 w-4 absolute fill-current text-foreground')}
+					className={cn('h-4 w-4 absolute text-foreground')}
+					filled={optimisticState.isBookmarked}
 				/>
 				<CheckIcon ref={checkIconRef} className={cn('h-4 w-4 absolute text-foreground')} />
-			</span>
-			<span className="min-w-[1ch] text-xs font-medium text-muted-foreground">
-				{optimisticState.bookmarks.toLocaleString()}
 			</span>
 		</Button>
 	);

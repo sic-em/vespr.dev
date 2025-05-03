@@ -128,11 +128,14 @@ export async function getResources() {
 		orderBy: {
 			createdAt: 'desc',
 		},
+		include: {
+			category: true,
+		},
 	});
 	return resources;
 }
 
-export type HomepageCategoryData = Category & { items: SectionItem[] };
+type HomepageCategoryData = Category & { items: SectionItem[] };
 
 export async function getResourcesForHomepage(): Promise<HomepageCategoryData[]> {
 	const categories = await db.category.findMany({
@@ -157,6 +160,8 @@ export async function getResourcesForHomepage(): Promise<HomepageCategoryData[]>
 							slug: true,
 						},
 					},
+					price: true,
+					recommended: true,
 				},
 			},
 		},
@@ -382,4 +387,80 @@ export async function getContributors() {
 	});
 
 	return contributors;
+}
+
+export async function getResourcesBrowse({
+	page = 1,
+	limit = 12,
+	categoryId,
+	search,
+}: {
+	page?: number;
+	limit?: number;
+	categoryId?: string;
+	search?: string;
+}) {
+	const skip = (page - 1) * limit;
+
+	// query filter
+	const where: {
+		status: ResourceStatus;
+		categoryId?: string;
+		OR?: Array<
+			| {
+					name: { contains: string; mode: 'insensitive' };
+			  }
+			| {
+					description: { contains: string; mode: 'insensitive' };
+			  }
+		>;
+	} = {
+		status: ResourceStatus.APPROVED,
+	};
+
+	if (categoryId) {
+		where.categoryId = categoryId;
+	}
+
+	if (search) {
+		where.OR = [
+			{
+				name: {
+					contains: search,
+					mode: 'insensitive',
+				},
+			},
+			{
+				description: {
+					contains: search,
+					mode: 'insensitive',
+				},
+			},
+		];
+	}
+
+	// get resources with pagination
+	const [resources, totalCount] = await Promise.all([
+		db.resource.findMany({
+			where,
+			skip,
+			take: limit,
+			orderBy: {
+				createdAt: 'desc',
+			},
+			include: {
+				category: true,
+			},
+		}),
+		db.resource.count({ where }),
+	]);
+
+	// get total pages
+	const totalPages = Math.ceil(totalCount / limit);
+
+	return {
+		resources,
+		totalPages,
+		currentPage: page,
+	};
 }

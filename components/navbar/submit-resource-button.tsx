@@ -32,16 +32,11 @@ export const SubmitResourceButton = ({ className }: SubmitResourceButtonProps) =
 	return (
 		<Popover open={isOpen} onOpenChange={setIsOpen}>
 			<PopoverTrigger asChild>
-				<Button
-					className={cn(
-						'bg-gradient-to-b from-pink-200 to-pink-300 hover:bg-pink-300 cursor-pointer text-pink-900 hover:from-pink-100 hover:to-pink-200 duration-300 ease-in-out transition-transform shadow-md active:scale-95',
-						className,
-					)}
-				>
+				<Button variant="accent" className={cn(className)}>
 					Submit
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-96 mr-2 rounded-[8px] p-4 backdrop-blur" sideOffset={24}>
+			<PopoverContent className="w-96 mr-2 rounded-[8px] p-4" sideOffset={24}>
 				{session?.user ? (
 					<SubmissionForm categories={categories} onSuccess={handleClose} />
 				) : (
