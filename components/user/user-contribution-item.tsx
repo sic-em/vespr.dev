@@ -1,11 +1,10 @@
 'use client';
 
+import { BookmarkIcon, EyeIcon } from '@/components/icons';
 import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
-import { BookmarkIcon, EyeIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { unstable_ViewTransition as ViewTransition } from 'react';
-
 type ContributionResource = Pick<
 	Resource,
 	'id' | 'name' | 'description' | 'imageUrl' | 'views' | 'bookmarkCount'
@@ -36,7 +35,7 @@ export function UserContributionItem({ resource }: UserContributionItemProps) {
 					</div>
 				)}
 				<div className="flex-grow min-w-0">
-					<h3 className="text-sm font-medium truncate">{resource.name}</h3>
+					<h3 className="text-sm font-semibold truncate">{resource.name}</h3>
 					<p className="text-xs text-muted-foreground truncate">{resource.description}</p>
 					<div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
 						<span className="flex items-center gap-1">
