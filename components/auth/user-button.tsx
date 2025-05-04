@@ -1,6 +1,6 @@
 'use client';
 
-import { CogIcon, LogoutIcon, UserIcon } from '@/components/icons';
+import { LogoutIcon, UserIcon } from '@/components/icons';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -43,17 +43,13 @@ export default function UserButton({ user }: { user: Omit<User, 'password'> }) {
 					</Avatar>
 					<div className="flex flex-col">
 						<p className="text-sm font-semibold">{user.name}</p>
-						<p className="text-xs text-muted-foreground">@{user.username}</p>
+						<p className="text-xs text-muted-foreground">@{user.displayUsername}</p>
 					</div>
 				</div>
 				<DropdownMenuSeparator className="mt-2" />
-				<DropdownMenuItem onSelect={() => router.push(`/user/${user.username}`)}>
+				<DropdownMenuItem onSelect={() => router.push(`/user/${user.displayUsername}`)}>
 					<UserIcon className="w-4 h-4 mr-2" />
 					Profile
-				</DropdownMenuItem>
-				<DropdownMenuItem onSelect={() => router.push('/settings')}>
-					<CogIcon className="w-4 h-4 mr-2" />
-					Settings
 				</DropdownMenuItem>
 				<ThemeToggle />
 				<DropdownMenuSeparator />
