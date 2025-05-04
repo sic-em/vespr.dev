@@ -19,7 +19,7 @@ export const Navbar = async () => {
 
 	return (
 		<nav className="sticky top-0 z-50 w-full border-b border-dashed  bg-noise">
-			<div className="flex items-center justify-between gap-2 md:gap-4 px-6 py-4 bg-background/95">
+			<div className="flex items-center justify-between gap-2 md:gap-4 px-6 py-4 bg-background/95 backdrop-blur-sm">
 				<div className="flex items-center gap-6">
 					<Link href="/">
 						<LogoIcon className="w-8 h-8" />
