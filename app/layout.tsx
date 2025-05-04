@@ -27,7 +27,8 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={cn(font.className, 'antialiased bg-noise')}>
+			<body className={cn(font.className, 'antialiased relative')}>
+				<div className="absolute inset-0 pointer-events-none before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-[url('/noise.gif')] before:z-[-1] before:content-[''] before:opacity-[0.02] z-[9999]" />
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"

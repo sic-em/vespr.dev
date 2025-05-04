@@ -3,12 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@utility bg-noise {
-	background-image: url("https://raw.githubusercontent.com/languine-ai/languine/ba04eb9a68e63f78c3a9cb6da3d1370fa4ccfc27/apps/web/public/noise.png");
-	background-repeat: repeat;
-	background-size: 80px;
-}
-
 :root {
 	--radius: 0.625rem;
 	--card: oklch(1 0 0);
@@ -148,11 +142,24 @@
 		}
 	}
 
+	@keyframes float {
+		0% {
+			transform: translateY(0px);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+		100% {
+			transform: translateY(0px);
+		}
+	}
+
 	.rainbow-banner-gradient-1 {
 		mask-image: linear-gradient(to bottom, white, transparent),
-			radial-gradient(circle at top center, white, transparent);
+			radial-gradient(circle at top center, white, transparent),
+			linear-gradient(to right, transparent, white 25%, white 75%, transparent);
 		mask-composite: intersect;
-		animation: moving-banner 16s linear infinite reverse;
+		animation: moving-banner 16s linear infinite reverse, float 6s ease-in-out infinite;
 		--start: rgba(255, 105, 180, 0.6);
 		--mid: rgba(0, 255, 127, 0.7);
 		--end: rgba(255, 215, 0, 0.5);
@@ -175,13 +182,20 @@
 		);
 		background-size: 200% 100%;
 		mix-blend-mode: difference;
+		transition: all 0.3s ease;
+	}
+
+	.rainbow-banner-gradient-1:hover {
+		filter: brightness(1.2);
+		transform: scale(1.02);
 	}
 
 	.rainbow-banner-gradient-2 {
 		mask-image: linear-gradient(to bottom, white, transparent),
-			radial-gradient(circle at top center, white, transparent);
+			radial-gradient(circle at top center, white, transparent),
+			linear-gradient(to right, transparent, white 25%, white 75%, transparent);
 		mask-composite: intersect;
-		animation: moving-banner 20s linear infinite;
+		animation: moving-banner 20s linear infinite, float 8s ease-in-out infinite;
 		--start: rgba(255, 69, 0, 0.6);
 		--mid: rgba(0, 191, 255, 0.7);
 		--end: rgba(147, 112, 219, 0.6);
@@ -204,5 +218,11 @@
 		);
 		background-size: 200% 100%;
 		mix-blend-mode: color-dodge;
+		transition: all 0.3s ease;
+	}
+
+	.rainbow-banner-gradient-2:hover {
+		filter: brightness(1.2);
+		transform: scale(1.02);
 	}
 }
