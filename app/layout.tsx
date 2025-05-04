@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
-import { Footer } from '@/components/footer';
-import { Navbar } from '@/components/navbar/navbar';
 import { Banner } from '@/components/ui/banner';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
@@ -48,9 +46,7 @@ export default function RootLayout({
 								/>
 							</Banner>
 						</Link>
-						<Navbar />
 						{children}
-						<Footer />
 					</NuqsAdapter>
 				</ThemeProvider>
 				<Toaster richColors />
