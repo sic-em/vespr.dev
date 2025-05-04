@@ -25,7 +25,7 @@ export function ItemImageDisplay({ resource }: ItemImageDisplayProps) {
 					src={resource.imageUrl}
 					alt={resource.name}
 					fill
-					className="object-cover"
+					className="object-cover dark:bg-neutral-900 bg-neutral-100"
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 				/>
 			</ViewTransition>
@@ -34,13 +34,13 @@ export function ItemImageDisplay({ resource }: ItemImageDisplayProps) {
 				<div className="flex items-center gap-2 absolute top-2 right-2 z-10">
 					{isNew && (
 						<Badge className="px-2 py-0.5 rounded-[8px]" variant="accent">
-							<SparklesIcon className="w-4 h-4 fill-purple-900" />
+							<SparklesIcon className="w-4 h-4 fill-pink-900" />
 							NEW
 						</Badge>
 					)}
 					{resource.price === ResourcePrice.PAID && (
 						<Badge className="px-2 py-0.5 rounded-[8px]" variant="accent">
-							<DollarIcon className="w-4 h-4 fill-purple-900" />
+							<DollarIcon className="w-4 h-4 fill-pink-900" />
 							PAID
 						</Badge>
 					)}

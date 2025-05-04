@@ -34,7 +34,7 @@ export function ItemCard({ item }: ItemCardProps) {
 							alt={displayName}
 							width={400}
 							height={225}
-							className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+							className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 dark:bg-neutral-900 bg-neutral-100"
 							onError={(e) => {
 								const target = e.target as HTMLImageElement;
 								target.srcset = placeholderImage;
@@ -49,13 +49,13 @@ export function ItemCard({ item }: ItemCardProps) {
 					<div className="flex items-center gap-2 absolute top-2 right-2">
 						{isNew && (
 							<Badge variant="accent" className="px-2 py-0.5 rounded-[8px] ">
-								<SparklesIcon className="w-4 h-4 fill-purple-900" />
+								<SparklesIcon className="w-4 h-4 fill-pink-900" />
 								NEW
 							</Badge>
 						)}
 						{item.price === ResourcePrice.PAID && (
 							<Badge variant="accent" className="px-2 py-0.5 rounded-[8px] ">
-								<DollarIcon className="w-4 h-4 fill-purple-900" />
+								<DollarIcon className="w-4 h-4 fill-pink-900" />
 								PAID
 							</Badge>
 						)}
@@ -65,11 +65,11 @@ export function ItemCard({ item }: ItemCardProps) {
 			<div className="mt-2">
 				<Link
 					href={`${item.url}?ref=vespr.dev`}
-					className="text-xs text-purple-300 hover:underline decoration-dashed underline-offset-2 flex items-center gap-1"
+					className="text-xs text-pink-500 font-semibold dark:text-pink-300 hover:underline decoration-dashed underline-offset-2 flex items-center gap-1"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<LinkIcon className="w-3 h-3 text-purple-300" />
+					<LinkIcon className="w-3 h-3 text-pink-300 dark:text-pink-500" />
 					{item.url.replace(/^(https?:\/\/)?(www\.)?([^\/]+).*$/, '$3')}
 				</Link>
 				<ViewTransition name={`title-${item.id}`}>

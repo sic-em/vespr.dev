@@ -269,7 +269,7 @@ export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) =
 
 				<Button variant="accent" type="submit" disabled={isSubmitting} className="w-full">
 					{isSubmitting ? <Spinner className="w-4 h-4 mr-2 animate-spin" /> : null}
-					Submit Resource
+					Submit
 				</Button>
 			</form>
 		</Form>

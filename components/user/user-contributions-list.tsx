@@ -44,8 +44,8 @@ export function UserContributionsList({ resources }: UserContributionsListProps)
 	}
 
 	return (
-		<div className="pt-4 border-t border-dashed">
-			<h2 className="text-xl font-semibold mb-6">Recent Contributions</h2>
+		<div className="pt-6 border-t border-dashed">
+			<h2 className="text-xl font-semibold mb-4">Recent Contributions</h2>
 
 			<div className="relative">
 				{/* Background Highlight */}

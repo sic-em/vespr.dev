@@ -14,7 +14,9 @@ export const ContributorList = ({ contributors }: { contributors: User[] }) => {
 					{contributors.slice(0, 5).map((contributor) => (
 						<Tooltip key={contributor.id}>
 							<TooltipTrigger asChild>
-								<Link href={contributor.username ? `/user/${contributor.username}` : '#'}>
+								<Link
+									href={contributor.displayUsername ? `/user/${contributor.displayUsername}` : '#'}
+								>
 									<ViewTransition name={`user-avatar-${contributor.id}`}>
 										<Avatar className="inline-block size-10 rounded-full ring-2 ring-background transition-transform hover:scale-110 hover:z-10">
 											<AvatarImage src={contributor.image ?? '/placeholder.svg'} />
@@ -25,8 +27,12 @@ export const ContributorList = ({ contributors }: { contributors: User[] }) => {
 									</ViewTransition>
 								</Link>
 							</TooltipTrigger>
-							<TooltipContent side="bottom" align="center" className="text-xs">
-								{contributor.name}
+							<TooltipContent
+								side="bottom"
+								align="center"
+								className="bg-muted text-primary border text-xs"
+							>
+								@{contributor.displayUsername}
 							</TooltipContent>
 						</Tooltip>
 					))}

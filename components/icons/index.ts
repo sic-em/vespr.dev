@@ -24,3 +24,4 @@ export * from './human-run';
 export * from './dollar';
 export * from './command';
 export * from './github';
+export * from './lightbulb';
