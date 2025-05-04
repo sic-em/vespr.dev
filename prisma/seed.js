@@ -7,7 +7,7 @@ const categories = [
 	{ name: 'Services', slug: 'services' },
 	{ name: 'Components & Blocks', slug: 'components-blocks' },
 	{ name: 'Tools', slug: 'tools' },
-	{ name: 'Articles', slug: 'articles' },
+	{ name: 'Mini Guides', slug: 'mini-guides' },
 	{ name: 'Icons', slug: 'icons' },
 	{ name: 'Fonts', slug: 'fonts' },
 	{ name: 'Illustrations', slug: 'illustrations' },
