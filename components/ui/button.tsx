@@ -10,16 +10,16 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				default:
-					'bg-gradient-to-b from-primary/90 to-primary cursor-pointer text-primary-foreground hover:from-primary/80 hover:to-primary/90 duration-300 ease-in-out transition-all shadow-md active:scale-95',
+					'bg-gradient-to-b from-primary/90 to-primary cursor-pointer text-primary-foreground hover:from-primary/80 hover:to-primary/90 duration-300 ease-in-out transition-all shadow-md',
 				destructive:
-					'bg-gradient-to-b from-red-200 to-red-300 hover:bg-red-300 cursor-pointer text-red-900 hover:from-red-100 hover:to-red-200 duration-300 ease-in-out transition-all shadow-md active:scale-95',
+					'bg-gradient-to-b from-red-200 to-red-300 hover:bg-red-300 cursor-pointer text-red-900 hover:from-red-100 hover:to-red-200 duration-300 ease-in-out transition-all shadow-md',
 				outline:
-					'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input/50 dark:hover:bg-input/50 bg-gradient-to-b from-background to-background/90 hover:from-background/90 hover:to-background/80 transition-transform duration-300 ease-in-out active:scale-95',
+					'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input/50 dark:hover:bg-input/50 bg-gradient-to-b from-background to-background/90 hover:from-background/90 hover:to-background/80 transition-transform duration-300 ease-in-out',
 				secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
 				ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
 				link: 'text-primary underline-offset-4 hover:underline',
 				accent:
-					'bg-gradient-to-b from-purple-200 to-purple-300 hover:bg-purple-300 cursor-pointer text-purple-900 hover:from-purple-100 hover:to-purple-200 duration-300 ease-in-out transition-all shadow-md active:scale-95',
+					'bg-gradient-to-br from-indigo-200 via-purple-200 to-indigo-300 text-indigo-900 hover:from-indigo-100 hover:via-purple-100 hover:to-indigo-200 cursor-pointer duration-300 ease-in-out transition-colors shadow-md',
 			},
 			size: {
 				default: 'h-9 px-4 py-2 has-[>svg]:px-3',
