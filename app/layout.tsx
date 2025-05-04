@@ -5,13 +5,12 @@ import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ArrowUpRight } from 'lucide-react';
+import localFont from 'next/font/local';
 import Link from 'next/link';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
-import localFont from 'next/font/local';
-
 const font = localFont({
-	src: '../fonts/DepartureMono-Regular.otf',
+	src: '../fonts/FliegeMonoVF.woff2',
 	display: 'swap',
 });
 
@@ -39,7 +38,7 @@ export default function RootLayout({
 						<Link href="/blog/welcome">
 							<Banner variant="rainbow" className="group h-[2.5rem] md:text-sm text-xs">
 								<p className="group-hover:underline underline-offset-4 decoration-dashed">
-									✨ Welcome to Vespr! We&apos;re excited to have you here
+									🚀 Welcome to Vespr! We&apos;re excited to have you here
 								</p>
 								<ArrowUpRight
 									className="size-3.5 ml-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 ease-out shrink-0"
