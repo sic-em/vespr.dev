@@ -102,7 +102,7 @@ export const FooterLogo = () => {
 		<div className="mt-6 w-full flex justify-center">
 			<div
 				ref={textRef}
-				className="hidden md:block text-muted-foreground/20 leading-none font-bold tracking-tighter cursor-pointer md:text-[150px] lg:text-[200px] xl:text-[300px]"
+				className="hidden md:block text-muted-foreground/20 leading-none font-bold tracking-tighter cursor-pointer md:text-[150px] lg:text-[200px] xl:text-[300px] font-mono"
 			>
 				{originalText}
 			</div>

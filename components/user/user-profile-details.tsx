@@ -20,7 +20,7 @@ export function UserProfileDetails({ user }: UserProfileDetailsProps) {
 							{formatDistanceToNow(new Date(user.createdAt), { addSuffix: true })}
 						</span>
 					</TooltipTrigger>
-					<TooltipContent>
+					<TooltipContent className="bg-muted text-primary border">
 						<p>{format(new Date(user.createdAt), "yyyy-MM-dd HH:mm:ss 'UTC'")}</p>
 					</TooltipContent>
 				</Tooltip>

@@ -31,11 +31,11 @@ export function ItemDetailsSection({ resource }: ItemDetailsSectionProps) {
 				<Label>Submitted</Label>
 				<Tooltip>
 					<TooltipTrigger asChild>
-						<span className="cursor-help bg-input/30  px-1.5 py-0.5 rounded-[8px]">
+						<span className="cursor-help bg-muted px-1.5 py-0.5 rounded-[8px]">
 							{formatDistanceToNow(new Date(resource.createdAt), { addSuffix: true })}
 						</span>
 					</TooltipTrigger>
-					<TooltipContent>
+					<TooltipContent className="bg-muted text-primary border">
 						<p>{format(new Date(resource.createdAt), "yyyy-MM-dd HH:mm:ss 'UTC'")}</p>
 					</TooltipContent>
 				</Tooltip>
