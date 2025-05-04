@@ -12,6 +12,8 @@ import type { User } from '@/prisma/app/generated/prisma/client';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 
+// TODO: Add newsletter link
+
 export const Navbar = async () => {
 	const categories = await getCategories();
 	const resources = await getResources();
@@ -29,9 +31,10 @@ export const Navbar = async () => {
 						<Link href="/browse" className={cn(buttonVariants({ variant: 'ghost' }))}>
 							Browse
 						</Link>
-						<Link href="/newsletter" className={cn(buttonVariants({ variant: 'ghost' }))}>
+						{/* <Link href="/newsletter" className={cn(buttonVariants({ variant: 'ghost' }))}>
 							Newsletter
-						</Link>
+						</Link> */}
+
 						<CategorySelect categories={categories} />
 						{session?.user?.role === 'admin' && (
 							<Link href="/admin" className={cn(buttonVariants({ variant: 'ghost' }))}>

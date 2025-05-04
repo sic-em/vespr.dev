@@ -11,8 +11,16 @@ import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { parse } from 'node-html-parser';
 
-export async function getCategories() {
-	return await db.category.findMany({ orderBy: { name: 'asc' } });
+export async function getCategories(): Promise<Category[]> {
+	const categories = await db.category.findMany({
+		orderBy: { name: 'asc' },
+		select: { id: true, name: true, slug: true, createdAt: true, updatedAt: true },
+	});
+
+	return [
+		...categories.filter((category) => category.slug !== 'misc'),
+		...categories.filter((category) => category.slug === 'misc'),
+	];
 }
 
 export async function fetchOpenGraphMetadata(targetUrl: string): Promise<OpenGraphMetadata> {
@@ -352,9 +360,9 @@ export async function toggleBookmarkResource(resourceId: string) {
 	}
 }
 
-export async function getUser(username: string) {
-	const user = await db.user.findUnique({
-		where: { username },
+export async function getUser(displayUsername: string) {
+	const user = await db.user.findFirst({
+		where: { displayUsername },
 		include: {
 			resources: {
 				where: {

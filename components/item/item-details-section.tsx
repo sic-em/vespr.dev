@@ -8,7 +8,7 @@ import { unstable_ViewTransition as ViewTransition } from 'react';
 
 type ResourceWithDetails = Pick<Resource, 'id' | 'createdAt' | 'userId'> & {
 	category: Pick<Category, 'id' | 'name'>;
-	user: Pick<User, 'id' | 'name' | 'image' | 'username'> | null;
+	user: Pick<User, 'id' | 'name' | 'image' | 'displayUsername'> | null;
 };
 
 interface ItemDetailsSectionProps {
@@ -56,7 +56,7 @@ export function ItemDetailsSection({ resource }: ItemDetailsSectionProps) {
 							</Avatar>
 						</ViewTransition>
 						<Link
-							href={`/user/${resource.user.username}`}
+							href={`/user/${resource.user.displayUsername}`}
 							className="hover:underline decoration-dashed underline-offset-2"
 						>
 							{resource.user.name || 'Anonymous'}
