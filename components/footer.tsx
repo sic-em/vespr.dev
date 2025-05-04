@@ -1,7 +1,9 @@
 import { getCategories } from '@/app/actions';
+import { FooterLogo } from '@/components/footer-logo';
+import { NewsletterForm } from '@/components/newsletter-form';
 import Link from 'next/link';
-import { FooterLogo } from './footer-logo';
-import { NewsletterForm } from './newsletter-form';
+
+// TODO: Add newsletter link
 
 const navigation = [
 	{
@@ -12,10 +14,10 @@ const navigation = [
 		label: 'Browse',
 		href: '/browse',
 	},
-	{
-		label: 'Newsletter',
-		href: '/newsletter',
-	},
+	// {
+	// 	label: 'Newsletter',
+	// 	href: '/newsletter',
+	// },
 ];
 
 const legal = [
