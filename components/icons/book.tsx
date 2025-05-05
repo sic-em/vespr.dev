@@ -1,0 +1,16 @@
+import type { SVGProps } from 'react';
+
+export const BookIcon = ({ className, ...props }: SVGProps<SVGSVGElement>) => {
+	return (
+		<svg
+			className={className}
+			fill="currentColor"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			{...props}
+		>
+			<title>Book</title>
+			<path d="M8 2h12v20H4V2h4zm4 8h-2v2H8V4H6v16h12V4h-4v8h-2v-2z" fill="currentColor" />
+		</svg>
+	);
+};
