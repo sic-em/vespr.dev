@@ -11,11 +11,10 @@ const searchParamsCache = createSearchParamsCache({
 	search: parseAsString.withDefault(''),
 });
 
-export default async function BrowsePage({
-	searchParams,
-}: {
+export default async function BrowsePage(props: {
 	searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+	const searchParams = await props.searchParams;
 	const params = await searchParamsCache.parse(searchParams);
 
 	const [categories, contributors, resourcesData] = await Promise.all([

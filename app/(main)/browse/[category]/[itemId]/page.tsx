@@ -12,12 +12,58 @@ import { ItemImageDisplay } from '@/components/item/item-image-display';
 import { ItemStatsSection } from '@/components/item/item-stats-section';
 import { SimilarItemsSection } from '@/components/item/similar-items-section';
 import { ResourceStatus } from '@/prisma/app/generated/prisma/client';
+import type { Metadata, ResolvingMetadata } from 'next';
 
 interface ItemPageProps {
 	params: Promise<{
 		category: string;
 		itemId: string;
 	}>;
+}
+
+export async function generateMetadata(
+	{ params }: ItemPageProps,
+	parent: ResolvingMetadata,
+): Promise<Metadata> {
+	const resolvedParams = await params;
+	const resource = await getResource(resolvedParams.itemId);
+
+	if (!resource) {
+		return {
+			title: 'Resource Not Found',
+		};
+	}
+
+	const previousImages = (await parent).openGraph?.images || [];
+
+	return {
+		title: `${resource.name} | Vesper`,
+		description: resource.description || 'Discover amazing resources on Vesper.',
+		openGraph: {
+			title: `${resource.name} | Vesper`,
+			description: resource.description || 'Discover amazing resources on Vesper.',
+			url: `/browse/${resource.category.slug}/${resource.id}`,
+			siteName: 'Vesper',
+			images: [
+				// The generated image will be added automatically by Next.js
+				// You can add fallback or additional images here if needed
+				// {
+				// 	url: resource.imageUrl || '/default-og-image.png',
+				// 	width: 1200,
+				// 	height: 630,
+				// },
+				...previousImages,
+			],
+			locale: 'en_US',
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: `${resource.name} | Vesper`,
+			description: resource.description || 'Discover amazing resources on Vesper.',
+			// images: [resource.imageUrl || '/default-twitter-image.png'], // Generated image preferred
+		},
+	};
 }
 
 export default async function ItemPage(props: ItemPageProps) {

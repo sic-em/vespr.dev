@@ -3,11 +3,13 @@
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import type { Category } from '@/prisma/app/generated/prisma/client';
-import { ChevronDownIcon, CircleHelpIcon } from 'lucide-react';
+import { CircleHelpIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
 import {
+	BookIcon,
+	ChevronDownIcon,
 	FaceThinkingIcon,
 	FigmaIcon,
 	GridIcon,
@@ -17,14 +19,15 @@ import {
 	LightbulbIcon,
 	MoreHorizontalIcon,
 	MouseIcon,
+	PaperIcon,
 	PowerIcon,
 	RocketIcon,
-	WritingIcon,
 } from '@/components/icons';
 import { cn } from '@/lib/utils';
 
 const categoryIcons = {
-	courses: WritingIcon,
+	articles: PaperIcon,
+	courses: BookIcon,
 	libraries: PowerIcon,
 	services: RocketIcon,
 	'components-blocks': GridIcon,
