@@ -8,11 +8,11 @@ import {
 	PaginationLink,
 } from '@/components/ui/pagination';
 import { usePagination } from '@/hooks/use-pagination';
-import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { parseAsInteger } from 'nuqs';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 import { useCallback } from 'react';
+import { ArrowBarLeftIcon, ArrowBarRightIcon, ChevronLeftIcon, ChevronRightIcon } from '../icons';
 
 interface BrowsePaginationProps {
 	currentPage: number;
@@ -67,7 +67,7 @@ export default function BrowsePagination({
 							aria-label="Go to first page"
 							aria-disabled={currentPage === 1}
 						>
-							<ChevronFirstIcon size={16} aria-hidden="true" />
+							<ArrowBarLeftIcon className="size-4" aria-hidden="true" />
 						</PaginationLink>
 					</PaginationItem>
 
@@ -83,7 +83,7 @@ export default function BrowsePagination({
 							aria-label="Go to previous page"
 							aria-disabled={currentPage === 1}
 						>
-							<ChevronLeftIcon size={16} aria-hidden="true" />
+							<ChevronLeftIcon className="size-4" aria-hidden="true" />
 						</PaginationLink>
 					</PaginationItem>
 
@@ -129,7 +129,7 @@ export default function BrowsePagination({
 							aria-label="Go to next page"
 							aria-disabled={currentPage === totalPages}
 						>
-							<ChevronRightIcon size={16} aria-hidden="true" />
+							<ChevronRightIcon className="size-4" aria-hidden="true" />
 						</PaginationLink>
 					</PaginationItem>
 
@@ -145,7 +145,7 @@ export default function BrowsePagination({
 							aria-label="Go to last page"
 							aria-disabled={currentPage === totalPages}
 						>
-							<ChevronLastIcon size={16} aria-hidden="true" />
+							<ArrowBarRightIcon className="size-4" aria-hidden="true" />
 						</PaginationLink>
 					</PaginationItem>
 				</PaginationContent>
