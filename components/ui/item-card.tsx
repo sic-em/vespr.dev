@@ -34,7 +34,7 @@ export function ItemCard({ item }: ItemCardProps) {
 							alt={displayName}
 							width={400}
 							height={225}
-							className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 dark:bg-neutral-900 bg-neutral-100"
+							className="h-full w-full object-fill transition-transform duration-300 group-hover:scale-105 dark:bg-neutral-900 bg-neutral-100"
 							onError={(e) => {
 								const target = e.target as HTMLImageElement;
 								target.srcset = placeholderImage;

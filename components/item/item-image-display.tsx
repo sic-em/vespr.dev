@@ -25,7 +25,7 @@ export function ItemImageDisplay({ resource }: ItemImageDisplayProps) {
 					src={resource.imageUrl}
 					alt={resource.name}
 					fill
-					className="object-cover dark:bg-neutral-900 bg-neutral-100"
+					className="object-fill dark:bg-neutral-900 bg-neutral-100"
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 				/>
 			</ViewTransition>

@@ -221,7 +221,7 @@ export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) =
 							<FormMessage />
 							{watchedImageUrl?.startsWith('http') && (
 								<div className="mt-2 aspect-video relative w-full overflow-hidden rounded-md border">
-									<Image src={watchedImageUrl} alt="Image Preview" fill className="object-cover" />
+									<Image src={watchedImageUrl} alt="Image Preview" fill className="object-fit" />
 								</div>
 							)}
 						</FormItem>
