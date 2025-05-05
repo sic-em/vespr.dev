@@ -26,7 +26,7 @@ export const Hero = ({ contributors }: { contributors: User[] }) => {
 				Vespr
 			</h2>
 			<div className="mt-2">
-				<p className="text-muted-foreground text-sm text-center mb-4">
+				<p className="text-muted-foreground text-base text-center mb-4">
 					Curated resources for your next project. Built by the community.
 				</p>
 				<ContributorList contributors={contributors} />
