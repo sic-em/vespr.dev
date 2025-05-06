@@ -27,6 +27,9 @@ export const metadata: Metadata = {
 	},
 	description:
 		'Discover and integrate top tools, libraries, and resources curated by developers like you. Stack smarter, code faster with Vespr.',
+	alternates: {
+		canonical: '/',
+	},
 	openGraph: {
 		title: 'Vespr | Stack Smarter',
 		description:
