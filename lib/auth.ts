@@ -6,7 +6,7 @@ import { admin, username } from 'better-auth/plugins';
 import cuid from 'cuid';
 
 export const auth = betterAuth({
-	trustedOrigins: [process.env.VERCEL_URL || 'http://localhost:3000'],
+	trustedOrigins: ['http://localhost:3000', 'https://vespr.dev'],
 	database: prismaAdapter(db, {
 		provider: 'postgresql',
 	}),
