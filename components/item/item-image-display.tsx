@@ -27,6 +27,7 @@ export function ItemImageDisplay({ resource }: ItemImageDisplayProps) {
 					fill
 					className="object-fill dark:bg-neutral-900 bg-neutral-100"
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+					unoptimized
 				/>
 			</ViewTransition>
 

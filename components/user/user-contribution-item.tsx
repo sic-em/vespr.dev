@@ -31,6 +31,7 @@ export function UserContributionItem({ resource }: UserContributionItemProps) {
 							fill
 							className="object-cover"
 							sizes="48px"
+							unoptimized
 						/>
 					</div>
 				)}

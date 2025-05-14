@@ -41,6 +41,7 @@ export function ItemCard({ item }: ItemCardProps) {
 								target.src = placeholderImage;
 							}}
 							priority
+							unoptimized
 						/>
 					</ViewTransition>
 				</Link>
