@@ -1,8 +1,8 @@
 'use client';
-import { MoonIcon } from '@/components/icons/moon';
-import { Switch } from '@/components/ui/switch';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { MoonIcon } from '@/components/icons/moon';
+import { Switch } from '@/components/ui/switch';
 
 export const ThemeToggle = () => {
 	const { theme, setTheme } = useTheme();
@@ -29,8 +29,9 @@ export const ThemeToggle = () => {
 	};
 
 	return (
-		<div
-			className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+		<fieldset
+			className="relative flex cursor-default select-none items-center rounded-sm border-0 p-0 m-0 min-w-0 px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+			aria-label="Theme"
 			onClick={(e) => e.stopPropagation()}
 			onKeyDown={(e) => {
 				if (e.key === 'Enter' || e.key === ' ') {
@@ -47,6 +48,6 @@ export const ThemeToggle = () => {
 				className="ml-auto"
 				aria-label="Toggle dark mode"
 			/>
-		</div>
+		</fieldset>
 	);
 };

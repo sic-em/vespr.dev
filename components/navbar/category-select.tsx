@@ -1,12 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import type { Category } from '@/prisma/app/generated/prisma/client';
 import { CircleHelpIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-
+import type { Category } from '@/app/generated/prisma/client';
 import {
 	BookIcon,
 	ChevronDownIcon,
@@ -23,6 +20,8 @@ import {
 	PowerIcon,
 	RocketIcon,
 } from '@/components/icons';
+import { Button } from '@/components/ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { cn } from '@/lib/utils';
 
 const categoryIcons = {

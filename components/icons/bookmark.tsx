@@ -1,4 +1,4 @@
-import { type SVGProps, forwardRef } from 'react';
+import { forwardRef, type SVGProps } from 'react';
 
 interface BookmarkIconProps extends SVGProps<SVGSVGElement> {
 	className?: string;

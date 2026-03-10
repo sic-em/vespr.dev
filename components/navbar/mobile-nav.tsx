@@ -1,5 +1,9 @@
 'use client';
 
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import Link from 'next/link';
+import type * as React from 'react';
+import type { Category } from '@/app/generated/prisma/client';
 import { BarsIcon } from '@/components/icons';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -12,10 +16,6 @@ import {
 	DrawerTrigger,
 } from '@/components/ui/drawer';
 import { cn } from '@/lib/utils';
-import type { Category } from '@/prisma/app/generated/prisma/client';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import Link from 'next/link';
-import type * as React from 'react';
 
 interface MobileNavProps {
 	categories: Category[];

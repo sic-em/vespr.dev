@@ -1,5 +1,5 @@
 Object.defineProperty(exports, '__esModule', { value: true });
-const client_1 = require('./app/generated/prisma/client');
+const client_1 = require('../app/generated/prisma/client');
 const prisma = new client_1.PrismaClient();
 const categories = [
 	{ name: 'Courses', slug: 'courses' },

@@ -1,8 +1,8 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import type { Category } from '@/prisma/app/generated/prisma/client';
 import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
-import { unstable_ViewTransition as ViewTransition, useCallback } from 'react';
+import { useCallback, unstable_ViewTransition as ViewTransition } from 'react';
+import type { Category } from '@/app/generated/prisma/client';
+import { Button } from '@/components/ui/button';
 
 interface CategoryPillsProps {
 	categories: Category[];

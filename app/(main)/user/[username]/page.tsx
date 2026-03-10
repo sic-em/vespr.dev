@@ -1,10 +1,10 @@
+import { notFound } from 'next/navigation';
 import { getUser } from '@/app/actions';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { UserContributionsList } from '@/components/user/user-contributions-list';
 import { UserProfileDetails } from '@/components/user/user-profile-details';
 import { UserProfileHeader } from '@/components/user/user-profile-header';
 import { UserProfileStats } from '@/components/user/user-profile-stats';
-import { notFound } from 'next/navigation';
 
 interface UserPageProps {
 	params: Promise<{

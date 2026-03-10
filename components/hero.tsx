@@ -1,10 +1,10 @@
 'use client';
 
-import { ContributorList } from '@/components/contributor-list';
-import { LogoIcon } from '@/components/logo';
-import type { User } from '@/prisma/app/generated/prisma/client';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
+import type { User } from '@/app/generated/prisma/client';
+import { ContributorList } from '@/components/contributor-list';
+import { LogoIcon } from '@/components/logo';
 
 export const Hero = ({ contributors }: { contributors: User[] }) => {
 	const heroRef = useRef<HTMLDivElement>(null);

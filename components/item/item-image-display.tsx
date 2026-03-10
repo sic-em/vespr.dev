@@ -1,10 +1,10 @@
-import { DollarIcon } from '@/components/icons';
-import { Badge } from '@/components/ui/badge';
-import type { Resource } from '@/prisma/app/generated/prisma/client';
-import { ResourcePrice } from '@/prisma/app/generated/prisma/client';
 import { SparklesIcon } from 'lucide-react';
 import Image from 'next/image';
 import { unstable_ViewTransition as ViewTransition } from 'react';
+import type { Resource } from '@/app/generated/prisma/client';
+import { ResourcePrice } from '@/app/generated/prisma/client';
+import { DollarIcon } from '@/components/icons';
+import { Badge } from '@/components/ui/badge';
 
 interface ItemImageDisplayProps {
 	resource: Pick<Resource, 'id' | 'name' | 'imageUrl' | 'createdAt' | 'price'>;

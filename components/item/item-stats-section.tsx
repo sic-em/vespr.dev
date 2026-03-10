@@ -1,6 +1,6 @@
+import type { Resource } from '@/app/generated/prisma/client';
 import { BookmarkIcon, EyeIcon } from '@/components/icons';
 import { Label } from '@/components/ui/label';
-import type { Resource } from '@/prisma/app/generated/prisma/client';
 
 interface ItemStatsSectionProps {
 	resource: Pick<Resource, 'views' | 'bookmarkCount'>;

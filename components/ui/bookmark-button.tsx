@@ -1,12 +1,12 @@
 'use client';
 
+import { gsap } from 'gsap';
+import { useEffect, useOptimistic, useRef, useTransition } from 'react';
+import { toast } from 'sonner';
 import { toggleBookmarkResource } from '@/app/actions';
 import { BookmarkIcon, CheckIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { gsap } from 'gsap';
-import { useEffect, useOptimistic, useRef, useTransition } from 'react';
-import { toast } from 'sonner';
 
 interface BookmarkButtonProps {
 	resourceId: string;

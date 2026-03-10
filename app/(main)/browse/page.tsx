@@ -1,9 +1,9 @@
+import { createSearchParamsCache, parseAsInteger, parseAsString } from 'nuqs/server';
 import { getCategories, getContributors, getResourcesBrowse } from '@/app/actions';
 import CategoryPills from '@/components/browse/category-pills';
 import BrowsePagination from '@/components/browse/pagination';
 import ResourceGrid from '@/components/browse/resource-grid';
 import { Hero } from '@/components/hero';
-import { createSearchParamsCache, parseAsInteger, parseAsString } from 'nuqs/server';
 
 const searchParamsCache = createSearchParamsCache({
 	categoryId: parseAsString.withDefault(''),

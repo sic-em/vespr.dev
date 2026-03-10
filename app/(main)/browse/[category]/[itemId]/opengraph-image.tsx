@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { getResource } from '@/app/actions';
 import { ImageResponse } from 'next/og';
+import { getResource } from '@/app/actions';
 
 export const alt = 'Vesper Resource';
 export const size = {
@@ -51,6 +51,7 @@ export default async function Image({ params }: { params: { itemId: string } }) 
 				backgroundColor: '#1a1a1a',
 			}}
 		>
+			{/* ImageResponse only supports raw <img>; next/image is not available */}
 			<img
 				src={imageUrl}
 				alt={resource.name}

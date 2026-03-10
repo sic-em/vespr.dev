@@ -1,5 +1,5 @@
-import db from '@/lib/db';
 import type { MetadataRoute } from 'next';
+import db from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL

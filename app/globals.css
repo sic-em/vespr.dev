@@ -155,11 +155,14 @@
 	}
 
 	.rainbow-banner-gradient-1 {
-		mask-image: linear-gradient(to bottom, white, transparent),
+		mask-image:
+			linear-gradient(to bottom, white, transparent),
 			radial-gradient(circle at top center, white, transparent),
 			linear-gradient(to right, transparent, white 25%, white 75%, transparent);
 		mask-composite: intersect;
-		animation: moving-banner 16s linear infinite reverse, float 6s ease-in-out infinite;
+		animation:
+			moving-banner 16s linear infinite reverse,
+			float 6s ease-in-out infinite;
 		--start: rgba(255, 105, 180, 0.6);
 		--mid: rgba(0, 255, 127, 0.7);
 		--end: rgba(255, 215, 0, 0.5);
@@ -191,11 +194,14 @@
 	}
 
 	.rainbow-banner-gradient-2 {
-		mask-image: linear-gradient(to bottom, white, transparent),
+		mask-image:
+			linear-gradient(to bottom, white, transparent),
 			radial-gradient(circle at top center, white, transparent),
 			linear-gradient(to right, transparent, white 25%, white 75%, transparent);
 		mask-composite: intersect;
-		animation: moving-banner 20s linear infinite, float 8s ease-in-out infinite;
+		animation:
+			moving-banner 20s linear infinite,
+			float 8s ease-in-out infinite;
 		--start: rgba(255, 69, 0, 0.6);
 		--mid: rgba(0, 191, 255, 0.7);
 		--end: rgba(147, 112, 219, 0.6);

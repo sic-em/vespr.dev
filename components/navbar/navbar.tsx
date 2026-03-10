@@ -1,4 +1,7 @@
+import { headers } from 'next/headers';
+import Link from 'next/link';
 import { getCategories, getResources } from '@/app/actions';
+import type { User } from '@/app/generated/prisma/client';
 import UserButton from '@/components/auth/user-button';
 import { LogoIcon } from '@/components/logo';
 import { CategorySelect } from '@/components/navbar/category-select';
@@ -8,9 +11,6 @@ import { SubmitResourceButton } from '@/components/navbar/submit-resource-button
 import { buttonVariants } from '@/components/ui/button';
 import { auth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
-import type { User } from '@/prisma/app/generated/prisma/client';
-import { headers } from 'next/headers';
-import Link from 'next/link';
 
 // TODO: Add newsletter link
 

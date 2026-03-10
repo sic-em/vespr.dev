@@ -1,22 +1,23 @@
 'use client';
 
-import { LinkIcon } from '@/components/icons';
-import { DollarIcon } from '@/components/icons';
-import { Badge } from '@/components/ui/badge';
-import type { SectionItem } from '@/components/ui/section';
-import { ResourcePrice } from '@/prisma/app/generated/prisma/client';
+import BoringAvatar from 'boring-avatars';
 import { SparklesIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { unstable_ViewTransition as ViewTransition } from 'react';
+import { useState, unstable_ViewTransition as ViewTransition } from 'react';
+import { ResourcePrice } from '@/app/generated/prisma/client';
+import { DollarIcon, LinkIcon } from '@/components/icons';
+import { Badge } from '@/components/ui/badge';
+import type { SectionItem } from '@/components/ui/section';
 
 interface ItemCardProps {
 	item: SectionItem & { createdAt?: Date | string | null };
 }
 
 export function ItemCard({ item }: ItemCardProps) {
-	const placeholderImage = '/placeholder.svg';
+	const [imageError, setImageError] = useState(false);
 	const displayName = item.name || 'Untitled Resource';
+	const usePlaceholder = !item.imageUrl || imageError;
 
 	const isNew =
 		item.createdAt && new Date(item.createdAt).getTime() > Date.now() - 24 * 60 * 60 * 1000; // 24 hours
@@ -29,20 +30,22 @@ export function ItemCard({ item }: ItemCardProps) {
 					className="group block aspect-video overflow-hidden rounded-[8px] shadow-sm transition-shadow hover:shadow-md border border-dashed"
 				>
 					<ViewTransition name={`image-${item.id}`}>
-						<Image
-							src={item.imageUrl || placeholderImage}
-							alt={displayName}
-							width={400}
-							height={225}
-							className="h-full w-full object-fill transition-transform duration-300 group-hover:scale-105 dark:bg-neutral-900 bg-neutral-100"
-							onError={(e) => {
-								const target = e.target as HTMLImageElement;
-								target.srcset = placeholderImage;
-								target.src = placeholderImage;
-							}}
-							priority
-							unoptimized
-						/>
+						{usePlaceholder ? (
+							<div className="flex h-full w-full items-center justify-center dark:bg-neutral-900 bg-neutral-100 transition-transform duration-300 group-hover:scale-105">
+								<BoringAvatar name={item.name ?? item.id} size={400} variant="beam" square />
+							</div>
+						) : (
+							<Image
+								src={item.imageUrl}
+								alt={displayName}
+								width={400}
+								height={225}
+								className="h-full w-full object-fill transition-transform duration-300 group-hover:scale-105 dark:bg-neutral-900 bg-neutral-100"
+								onError={() => setImageError(true)}
+								priority
+								unoptimized
+							/>
+						)}
 					</ViewTransition>
 				</Link>
 
@@ -71,7 +74,7 @@ export function ItemCard({ item }: ItemCardProps) {
 					rel="noopener noreferrer"
 				>
 					<LinkIcon className="w-3 h-3 text-pink-300 dark:text-pink-500" />
-					{item.url.replace(/^(https?:\/\/)?(www\.)?([^\/]+).*$/, '$3')}
+					{item.url.replace(/^(https?:\/\/)?(www\.)?([^/]+).*$/, '$3')}
 				</Link>
 				<ViewTransition name={`title-${item.id}`}>
 					<h3 className="line-clamp-1 text-base font-semibold leading-tight text-foreground">

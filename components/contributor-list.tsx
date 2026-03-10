@@ -1,10 +1,11 @@
 'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import type { User } from '@/prisma/app/generated/prisma/client';
+import BoringAvatar from 'boring-avatars';
 import Link from 'next/link';
 import { unstable_ViewTransition as ViewTransition } from 'react';
+import type { User } from '@/app/generated/prisma/client';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export const ContributorList = ({ contributors }: { contributors: User[] }) => {
 	return (
@@ -18,12 +19,22 @@ export const ContributorList = ({ contributors }: { contributors: User[] }) => {
 									href={contributor.displayUsername ? `/user/${contributor.displayUsername}` : '#'}
 								>
 									<ViewTransition name={`user-avatar-${contributor.id}`}>
-										<Avatar className="inline-block size-10 rounded-full ring-2 ring-background transition-transform hover:scale-110 hover:z-10">
-											<AvatarImage src={contributor.image ?? '/placeholder.svg'} />
-											<AvatarFallback className="text-xs">
-												{contributor.name[0].toUpperCase()}
-											</AvatarFallback>
-										</Avatar>
+										{contributor.image ? (
+											<Avatar className="inline-block size-10 rounded-full ring-2 ring-background transition-transform hover:scale-110 hover:z-10">
+												<AvatarImage src={contributor.image} />
+												<AvatarFallback className="text-xs">
+													{contributor.name[0].toUpperCase()}
+												</AvatarFallback>
+											</Avatar>
+										) : (
+											<span className="inline-block size-10 overflow-hidden rounded-full ring-2 ring-background transition-transform hover:scale-110 hover:z-10">
+												<BoringAvatar
+													name={contributor.displayUsername ?? contributor.name ?? contributor.id}
+													size={40}
+													variant="beam"
+												/>
+											</span>
+										)}
 									</ViewTransition>
 								</Link>
 							</TooltipTrigger>

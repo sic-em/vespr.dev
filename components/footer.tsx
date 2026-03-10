@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import { getCategories } from '@/app/actions';
 import { FooterLogo } from '@/components/footer-logo';
 import { NewsletterForm } from '@/components/newsletter-form';
-import Link from 'next/link';
 
 // TODO: Add newsletter link
 

@@ -1,10 +1,11 @@
 'use client';
 
-import { BookmarkIcon, EyeIcon } from '@/components/icons';
-import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { unstable_ViewTransition as ViewTransition } from 'react';
+import type { Category, Resource } from '@/app/generated/prisma/client';
+import { BookmarkIcon, EyeIcon } from '@/components/icons';
+
 type ContributionResource = Pick<
 	Resource,
 	'id' | 'name' | 'description' | 'imageUrl' | 'views' | 'bookmarkCount'

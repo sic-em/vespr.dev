@@ -1,5 +1,5 @@
+import type { Category } from '@/app/generated/prisma/client';
 import { Section, type SectionItem } from '@/components/ui/section';
-import type { Category } from '@/prisma/app/generated/prisma/client';
 
 interface SimilarItemsSectionProps {
 	items: SectionItem[];
