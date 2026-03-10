@@ -1,15 +1,15 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
+import { parse } from 'node-html-parser';
+import { type Category, ResourceStatus } from '@/app/generated/prisma/client';
 import type { SectionItem } from '@/components/ui/section';
 import { auth } from '@/lib/auth';
 import db from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { type SubmissionSchema, submissionSchema } from '@/lib/schemas';
-import { type Category, ResourceStatus } from '@/prisma/app/generated/prisma/client';
 import type { OpenGraphMetadata } from '@/types/opengraph';
-import { revalidatePath } from 'next/cache';
-import { headers } from 'next/headers';
-import { parse } from 'node-html-parser';
 
 export async function getCategories(): Promise<Category[]> {
 	const categories = await db.category.findMany({

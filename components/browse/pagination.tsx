@@ -1,5 +1,7 @@
 'use client';
 
+import { parseAsInteger, useQueryState } from 'nuqs';
+import { useCallback, unstable_ViewTransition as ViewTransition } from 'react';
 import {
 	Pagination,
 	PaginationContent,
@@ -8,10 +10,6 @@ import {
 	PaginationLink,
 } from '@/components/ui/pagination';
 import { usePagination } from '@/hooks/use-pagination';
-import { useQueryState } from 'nuqs';
-import { parseAsInteger } from 'nuqs';
-import { unstable_ViewTransition as ViewTransition } from 'react';
-import { useCallback } from 'react';
 import { ArrowBarLeftIcon, ArrowBarRightIcon, ChevronLeftIcon, ChevronRightIcon } from '../icons';
 
 interface BrowsePaginationProps {

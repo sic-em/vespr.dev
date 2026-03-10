@@ -1,5 +1,8 @@
 'use client';
 
+import BoringAvatar from 'boring-avatars';
+import { useRouter } from 'next/navigation';
+import type { User } from '@/app/generated/prisma/client';
 import { LogoutIcon, UserIcon } from '@/components/icons';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -12,8 +15,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { authClient } from '@/lib/auth-client';
-import type { User } from '@/prisma/app/generated/prisma/client';
-import { useRouter } from 'next/navigation';
 
 export default function UserButton({ user }: { user: Omit<User, 'password'> }) {
 	const router = useRouter();
@@ -31,16 +32,36 @@ export default function UserButton({ user }: { user: Omit<User, 'password'> }) {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
-					<Avatar className="h-8 w-8">
-						<AvatarImage src={user.image ?? '/placeholder.svg'} alt={user.name ?? 'Avatar'} />
-					</Avatar>
+					{user.image ? (
+						<Avatar className="h-8 w-8">
+							<AvatarImage src={user.image} alt={user.name ?? 'Avatar'} />
+						</Avatar>
+					) : (
+						<span className="inline-block h-8 w-8 overflow-hidden rounded-full">
+							<BoringAvatar
+								name={user.displayUsername ?? user.name ?? user.id}
+								size={32}
+								variant="beam"
+							/>
+						</span>
+					)}
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="p-4 w-56 rounded-[8px]" sideOffset={24} alignOffset={-10}>
 				<div className="flex items-center gap-2">
-					<Avatar className="h-8 w-8">
-						<AvatarImage src={user.image ?? '/placeholder.svg'} alt={user.name ?? 'Avatar'} />
-					</Avatar>
+					{user.image ? (
+						<Avatar className="h-8 w-8">
+							<AvatarImage src={user.image} alt={user.name ?? 'Avatar'} />
+						</Avatar>
+					) : (
+						<span className="inline-block h-8 w-8 overflow-hidden rounded-full shrink-0">
+							<BoringAvatar
+								name={user.displayUsername ?? user.name ?? user.id}
+								size={32}
+								variant="beam"
+							/>
+						</span>
+					)}
 					<div className="flex flex-col">
 						<p className="text-sm font-semibold">{user.name}</p>
 						<p className="text-xs text-muted-foreground">@{user.displayUsername}</p>

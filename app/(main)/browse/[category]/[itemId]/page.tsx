@@ -1,18 +1,17 @@
-import { getResource, getSimilarResources } from '@/app/actions';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { auth } from '@/lib/auth';
-import db from '@/lib/db';
+import type { Metadata, ResolvingMetadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-
+import { getResource, getSimilarResources } from '@/app/actions';
+import { ResourceStatus } from '@/app/generated/prisma/client';
 import { ItemActionsBar } from '@/components/item/item-actions-bar';
 import { ItemDetailsSection } from '@/components/item/item-details-section';
 import { ItemHeader } from '@/components/item/item-header';
 import { ItemImageDisplay } from '@/components/item/item-image-display';
 import { ItemStatsSection } from '@/components/item/item-stats-section';
 import { SimilarItemsSection } from '@/components/item/similar-items-section';
-import { ResourceStatus } from '@/prisma/app/generated/prisma/client';
-import type { Metadata, ResolvingMetadata } from 'next';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { auth } from '@/lib/auth';
+import db from '@/lib/db';
 
 interface ItemPageProps {
 	params: Promise<{

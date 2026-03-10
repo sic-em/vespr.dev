@@ -1,11 +1,10 @@
 'use client';
 
-import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
 import gsap from 'gsap';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
-import { unstable_ViewTransition as ViewTransition } from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, unstable_ViewTransition as ViewTransition } from 'react';
+import type { Category, Resource } from '@/app/generated/prisma/client';
 import { Button } from './button';
 import { ItemCard } from './item-card';
 

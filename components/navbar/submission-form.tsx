@@ -1,6 +1,15 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { debounce } from 'lodash-es';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useId, useMemo, useState, useTransition } from 'react';
+import { type SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import { toast } from 'sonner';
 import { fetchOpenGraphMetadata, submitResource } from '@/app/actions';
+import type { Category } from '@/app/generated/prisma/client';
+import { ResourcePrice } from '@/app/generated/prisma/client';
 import { Spinner } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
@@ -23,15 +32,6 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { type SubmissionSchema, submissionSchema } from '@/lib/schemas';
-import type { Category } from '@/prisma/app/generated/prisma/client';
-import { ResourcePrice } from '@/prisma/app/generated/prisma/client';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { debounce } from 'lodash-es';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useId, useMemo, useState, useTransition } from 'react';
-import { type SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { toast } from 'sonner';
 
 type SubmissionFormData = SubmissionSchema;
 
@@ -73,7 +73,9 @@ export const SubmissionForm = ({ categories, onSuccess }: SubmissionFormProps) =
 				const metadata = await fetchOpenGraphMetadata(targetUrl);
 				if (metadata.title) form.setValue('name', metadata.title, { shouldValidate: true });
 				if (metadata.description)
-					form.setValue('description', metadata.description, { shouldValidate: true });
+					form.setValue('description', metadata.description, {
+						shouldValidate: true,
+					});
 				if (metadata.image) form.setValue('imageUrl', metadata.image, { shouldValidate: true });
 				else {
 					form.setError('imageUrl', {

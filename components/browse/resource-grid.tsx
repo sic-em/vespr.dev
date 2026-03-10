@@ -1,8 +1,8 @@
 'use client';
 
-import { ItemCard } from '@/components/ui/item-card';
-import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
 import { unstable_ViewTransition as ViewTransition } from 'react';
+import type { Category, Resource } from '@/app/generated/prisma/client';
+import { ItemCard } from '@/components/ui/item-card';
 
 interface ResourceWithCategory extends Resource {
 	category: Category;

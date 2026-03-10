@@ -1,5 +1,5 @@
-import type { Resource } from '@/prisma/app/generated/prisma/client';
 import { unstable_ViewTransition as ViewTransition } from 'react';
+import type { Resource } from '@/app/generated/prisma/client';
 
 interface ItemHeaderProps {
 	resource: Pick<Resource, 'id' | 'name' | 'description'>;

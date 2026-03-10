@@ -1,8 +1,8 @@
-import { BookmarkButton } from '@/components/ui/bookmark-button';
-import { Button } from '@/components/ui/button';
-import type { Resource } from '@/prisma/app/generated/prisma/client';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import type { Resource } from '@/app/generated/prisma/client';
+import { BookmarkButton } from '@/components/ui/bookmark-button';
+import { Button } from '@/components/ui/button';
 
 interface ItemActionsBarProps {
 	resource: Pick<Resource, 'id' | 'url' | 'bookmarkCount'>;

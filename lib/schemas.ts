@@ -1,5 +1,5 @@
-import { ResourcePrice } from '@/prisma/app/generated/prisma/client';
 import { z } from 'zod';
+import { ResourcePrice } from '@/app/generated/prisma/client';
 
 export const submissionSchema = z.object({
 	url: z.string().url({ message: 'Please enter a valid URL.' }),
@@ -11,7 +11,9 @@ export const submissionSchema = z.object({
 		.optional()
 		.or(z.literal('')),
 	categoryId: z.string().uuid({ message: 'Please select a category.' }),
-	price: z.nativeEnum(ResourcePrice, { message: 'Please select a price category.' }),
+	price: z.nativeEnum(ResourcePrice, {
+		message: 'Please select a price category.',
+	}),
 	recommended: z.boolean(),
 });
 

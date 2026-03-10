@@ -1,7 +1,7 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import type { Resource, User } from '@/app/generated/prisma/client';
 import { Label } from '@/components/ui/label';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import type { Resource, User } from '@/prisma/app/generated/prisma/client';
-import { format, formatDistanceToNow } from 'date-fns';
 
 interface UserProfileDetailsProps {
 	user: Pick<User, 'createdAt' | 'updatedAt'> & {
@@ -17,7 +17,9 @@ export function UserProfileDetails({ user }: UserProfileDetailsProps) {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<span className="cursor-help bg-muted-foreground/10 px-1.5 py-0.5 rounded-[8px]">
-							{formatDistanceToNow(new Date(user.createdAt), { addSuffix: true })}
+							{formatDistanceToNow(new Date(user.createdAt), {
+								addSuffix: true,
+							})}
 						</span>
 					</TooltipTrigger>
 					<TooltipContent className="bg-muted text-primary border">

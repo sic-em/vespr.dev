@@ -1,14 +1,14 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { getCategories } from '@/app/actions';
+import type { Category } from '@/app/generated/prisma/client';
 import { LoginButton } from '@/components/auth/login-button';
 import { SubmissionForm } from '@/components/navbar/submission-form';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
-import type { Category } from '@/prisma/app/generated/prisma/client';
-import { useEffect, useState } from 'react';
 
 interface SubmitResourceButtonProps {
 	className?: string;

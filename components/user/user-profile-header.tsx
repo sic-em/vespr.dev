@@ -1,9 +1,9 @@
+import Link from 'next/link';
+import { unstable_ViewTransition as ViewTransition } from 'react';
+import type { User } from '@/app/generated/prisma/client';
 import { GithubIcon } from '@/components/icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import type { User } from '@/prisma/app/generated/prisma/client';
-import Link from 'next/link';
-import { unstable_ViewTransition as ViewTransition } from 'react';
 
 interface UserProfileHeaderProps {
 	user: Pick<User, 'id' | 'name' | 'email' | 'image' | 'displayUsername' | 'username' | 'role'>;

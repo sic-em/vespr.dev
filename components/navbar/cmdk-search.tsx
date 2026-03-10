@@ -1,5 +1,9 @@
 'use client';
 
+import { Anonymous_Pro } from 'next/font/google';
+import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import type { Category, Resource } from '@/app/generated/prisma/client';
 import { SearchIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,10 +15,6 @@ import {
 	CommandList,
 } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
-import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
-import { Anonymous_Pro } from 'next/font/google';
-import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
 
 const font = Anonymous_Pro({
 	weight: ['400', '700'],

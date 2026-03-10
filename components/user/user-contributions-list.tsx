@@ -1,7 +1,7 @@
 'use client';
 
-import type { Category, Resource } from '@/prisma/app/generated/prisma/client';
 import { useEffect, useRef, useState } from 'react';
+import type { Category, Resource } from '@/app/generated/prisma/client';
 import { UserContributionItem } from './user-contribution-item';
 
 type ContributionResource = Pick<
@@ -18,7 +18,7 @@ interface UserContributionsListProps {
 export function UserContributionsList({ resources }: UserContributionsListProps) {
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 	const [activePillStyle, setActivePillStyle] = useState({});
-	const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+	const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
 	useEffect(() => {
 		itemRefs.current = itemRefs.current.slice(0, resources.length);
@@ -58,9 +58,9 @@ export function UserContributionsList({ resources }: UserContributionsListProps)
 				/>
 
 				{/* Items */}
-				<div className="space-y-5 relative">
+				<ul className="space-y-5 relative list-none p-0 m-0">
 					{resources.slice(0, 8).map((resource, index) => (
-						<div
+						<li
 							key={resource.id}
 							ref={(el) => {
 								itemRefs.current[index] = el;
@@ -70,9 +70,9 @@ export function UserContributionsList({ resources }: UserContributionsListProps)
 							onMouseLeave={() => setHoveredIndex(null)}
 						>
 							<UserContributionItem resource={resource} />
-						</div>
+						</li>
 					))}
-				</div>
+				</ul>
 			</div>
 		</div>
 	);

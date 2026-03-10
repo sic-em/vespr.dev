@@ -1,7 +1,7 @@
 'use client';
-import { cn } from '@/lib/utils';
-import { usePostHog } from 'posthog-js/react';
+
 import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export function getCookieConsentValue(): 'yes' | 'no' | 'undecided' {
 	if (typeof window === 'undefined') {
@@ -16,23 +16,10 @@ export function getCookieConsentValue(): 'yes' | 'no' | 'undecided' {
 
 export function CookieConsentBanner() {
 	const [consentGiven, setConsentGiven] = useState<'yes' | 'no' | 'undecided'>('undecided');
-	const posthog = usePostHog();
 
 	useEffect(() => {
 		setConsentGiven(getCookieConsentValue());
 	}, []);
-
-	useEffect(() => {
-		if (consentGiven !== 'undecided' && posthog) {
-			try {
-				posthog.set_config({
-					persistence: consentGiven === 'yes' ? 'localStorage+cookie' : 'memory',
-				});
-			} catch (error) {
-				console.error('Error setting PostHog config:', error);
-			}
-		}
-	}, [consentGiven, posthog]);
 
 	const handleAcceptCookies = () => {
 		localStorage.setItem('cookie_consent', 'yes');

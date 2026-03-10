@@ -1,10 +1,10 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Label } from '@/components/ui/label';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import type { Category, Resource, User } from '@/prisma/app/generated/prisma/client';
 import { format, formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import { unstable_ViewTransition as ViewTransition } from 'react';
+import type { Category, Resource, User } from '@/app/generated/prisma/client';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Label } from '@/components/ui/label';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 type ResourceWithDetails = Pick<Resource, 'id' | 'createdAt' | 'userId'> & {
 	category: Pick<Category, 'id' | 'name'>;
@@ -32,7 +32,9 @@ export function ItemDetailsSection({ resource }: ItemDetailsSectionProps) {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<span className="cursor-help bg-muted px-1.5 py-0.5 rounded-[8px]">
-							{formatDistanceToNow(new Date(resource.createdAt), { addSuffix: true })}
+							{formatDistanceToNow(new Date(resource.createdAt), {
+								addSuffix: true,
+							})}
 						</span>
 					</TooltipTrigger>
 					<TooltipContent className="bg-muted text-primary border">
