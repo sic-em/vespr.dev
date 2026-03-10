@@ -16,10 +16,12 @@ const font = localFont({
 });
 
 export const baseUrl =
-	process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_URL;
+	process.env.NODE_ENV === 'development'
+		? 'http://localhost:3000'
+		: (process.env.NEXT_PUBLIC_URL ?? 'https://vespr.dev');
 
 export const metadata: Metadata = {
-	metadataBase: new URL(baseUrl as string),
+	metadataBase: new URL(baseUrl),
 	title: {
 		default: 'Vespr | Stack Smarter',
 		template: '%s | Vespr',
