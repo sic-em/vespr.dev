@@ -38,10 +38,7 @@ export default function UserButton({ user }: { user: Omit<User, 'password'> }) {
 						</Avatar>
 					) : (
 						<span className="inline-block h-8 w-8 overflow-hidden rounded-full">
-							<BoringAvatar
-								name={user.displayUsername ?? user.name ?? user.id}
-								size={32}
-							/>
+							<BoringAvatar name={user.displayUsername ?? user.name ?? user.id} size={32} />
 						</span>
 					)}
 				</Button>
@@ -54,10 +51,7 @@ export default function UserButton({ user }: { user: Omit<User, 'password'> }) {
 						</Avatar>
 					) : (
 						<span className="inline-block h-8 w-8 overflow-hidden rounded-full shrink-0">
-							<BoringAvatar
-								name={user.displayUsername ?? user.name ?? user.id}
-								size={32}
-							/>
+							<BoringAvatar name={user.displayUsername ?? user.name ?? user.id} size={32} />
 						</span>
 					)}
 					<div className="flex flex-col">
