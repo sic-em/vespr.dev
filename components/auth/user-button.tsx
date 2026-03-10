@@ -41,7 +41,6 @@ export default function UserButton({ user }: { user: Omit<User, 'password'> }) {
 							<BoringAvatar
 								name={user.displayUsername ?? user.name ?? user.id}
 								size={32}
-								variant="beam"
 							/>
 						</span>
 					)}
@@ -58,7 +57,6 @@ export default function UserButton({ user }: { user: Omit<User, 'password'> }) {
 							<BoringAvatar
 								name={user.displayUsername ?? user.name ?? user.id}
 								size={32}
-								variant="beam"
 							/>
 						</span>
 					)}

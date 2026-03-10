@@ -31,7 +31,6 @@ export const ContributorList = ({ contributors }: { contributors: User[] }) => {
 												<BoringAvatar
 													name={contributor.displayUsername ?? contributor.name ?? contributor.id}
 													size={40}
-													variant="beam"
 												/>
 											</span>
 										)}
