@@ -20,17 +20,6 @@ const navigation = [
 	// },
 ];
 
-const legal = [
-	{
-		label: 'Privacy Policy',
-		href: '/privacy',
-	},
-	{
-		label: 'Terms of Service',
-		href: '/terms',
-	},
-];
-
 export const Footer = async () => {
 	const categories = await getCategories();
 
@@ -60,21 +49,6 @@ export const Footer = async () => {
 							<h3 className="font-semibold mb-3">Navigation</h3>
 							<ul className="space-y-2">
 								{navigation.map((item) => (
-									<li key={item.href}>
-										<Link
-											href={item.href}
-											className="hover:underline decoration-dashed underline-offset-4 text-muted-foreground hover:text-foreground duration-200 ease-in-out transition-colors"
-										>
-											{item.label}
-										</Link>
-									</li>
-								))}
-							</ul>
-						</div>
-
-						<div className="mt-auto pt-4">
-							<ul className="flex flex-col space-y-2">
-								{legal.map((item) => (
 									<li key={item.href}>
 										<Link
 											href={item.href}
