@@ -3,8 +3,7 @@
 import BoringAvatar from 'boring-avatars';
 import { SparklesIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
-import { unstable_ViewTransition as ViewTransition } from 'react';
+import { useState, unstable_ViewTransition as ViewTransition } from 'react';
 import type { Resource } from '@/app/generated/prisma/client';
 import { ResourcePrice } from '@/app/generated/prisma/client';
 import { DollarIcon } from '@/components/icons';
@@ -26,11 +25,7 @@ export function ItemImageDisplay({ resource }: ItemImageDisplayProps) {
 			<ViewTransition name={`image-${resource.id}`}>
 				{usePlaceholder ? (
 					<div className="absolute inset-0 flex items-center justify-center dark:bg-neutral-900 bg-neutral-100">
-						<BoringAvatar
-							name={resource.name ?? resource.id}
-							size={1200}
-							square
-						/>
+						<BoringAvatar name={resource.name ?? resource.id} size={1200} square />
 					</div>
 				) : (
 					<Image
