@@ -1,5 +1,9 @@
+'use client';
+
+import BoringAvatar from 'boring-avatars';
 import { SparklesIcon } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 import type { Resource } from '@/app/generated/prisma/client';
 import { ResourcePrice } from '@/app/generated/prisma/client';
@@ -11,9 +15,8 @@ interface ItemImageDisplayProps {
 }
 
 export function ItemImageDisplay({ resource }: ItemImageDisplayProps) {
-	if (!resource.imageUrl) {
-		return null;
-	}
+	const [imageError, setImageError] = useState(false);
+	const usePlaceholder = !resource.imageUrl || imageError;
 
 	const isNew =
 		resource.createdAt && new Date(resource.createdAt).getTime() > Date.now() - 24 * 60 * 60 * 1000; // 24 hours
@@ -21,14 +24,25 @@ export function ItemImageDisplay({ resource }: ItemImageDisplayProps) {
 	return (
 		<div className="mb-6 relative aspect-video w-full overflow-hidden rounded-md border">
 			<ViewTransition name={`image-${resource.id}`}>
-				<Image
-					src={resource.imageUrl}
-					alt={resource.name}
-					fill
-					className="object-fill dark:bg-neutral-900 bg-neutral-100"
-					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-					unoptimized
-				/>
+				{usePlaceholder ? (
+					<div className="absolute inset-0 flex items-center justify-center dark:bg-neutral-900 bg-neutral-100">
+						<BoringAvatar
+							name={resource.name ?? resource.id}
+							size={1200}
+							square
+						/>
+					</div>
+				) : (
+					<Image
+						src={resource.imageUrl}
+						alt={resource.name}
+						fill
+						className="object-fill dark:bg-neutral-900 bg-neutral-100"
+						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						unoptimized
+						onError={() => setImageError(true)}
+					/>
+				)}
 			</ViewTransition>
 
 			<ViewTransition name={`badges-${resource.id}`}>

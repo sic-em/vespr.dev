@@ -32,7 +32,7 @@ export function ItemCard({ item }: ItemCardProps) {
 					<ViewTransition name={`image-${item.id}`}>
 						{usePlaceholder ? (
 							<div className="flex h-full w-full items-center justify-center dark:bg-neutral-900 bg-neutral-100 transition-transform duration-300 group-hover:scale-105">
-								<BoringAvatar name={item.name ?? item.id} size={400} variant="beam" square />
+								<BoringAvatar name={item.name ?? item.id} size={400} square />
 							</div>
 						) : (
 							<Image
